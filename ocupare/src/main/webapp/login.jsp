@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="UTF-8">
 		<title>AC</title>
 		<link href="style.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
@@ -28,10 +28,10 @@
 	
 	<body>
 		
-		<div class="navbar" style="height: 61px">
-		  <a href="first.jsp" style="text-decoration: none; font-size:18px; padding: 18px 22px;"><i class="fa fa-home" style="font-size:18px"></i>&nbsp; Acasă </a>
-		  <a href="login.jsp" style="text-decoration: none; font-size:18px; padding: 18px 22px;"><i class="fa fa-sign-in" style="font-size:18px"></i>&nbsp; Autentificare </a>
-		  <a href="logout.jsp" style="text-decoration: none; font-size:18px;padding: 18px 22px;"><i class="fa fa-sign-out" style="font-size:18px"></i>&nbsp; Deconectare </a>
+		<div class="navbar">
+		  <a href="index.jsp" style="text-decoration: none;"><i class="fa fa-home" style="font-size:20px"></i>&nbsp; Acas&#259; </a>
+		  <a href="login.jsp" style="text-decoration: none;"><i class="fa fa-sign-in" style="font-size:20px"></i>&nbsp; Autentificare </a>
+		  <a href="logout.jsp" style="text-decoration: none;"><i class="fa fa-sign-out" style="font-size:20px"></i>&nbsp; Deconectare </a>
 		</div>
 		
 		<br/>
@@ -43,7 +43,7 @@
 						<div class="form-body">
 							<ul class="nav nav-tabs final-login">
 								<li class="active"><a data-toggle="tab" href="#sectionA">Autentificare</a></li>
-								<li><a data-toggle="tab" href="#sectionB">Înregistrare</a></li>
+								<li><a data-toggle="tab" href="#sectionB">&#206;nregistrare</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="sectionA" class="tab-pane fade in active">
@@ -79,7 +79,7 @@
 		</div>
 		
 		<footer>
-			<div style="text-align: center;"> &copy; Practică 2018 </div>
+			<div style="text-align: center;"> &copy; Practic&#259; 2018 </div>
 		</footer>
 
 	</body>

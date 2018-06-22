@@ -24,9 +24,9 @@
 	</head>
 	
 	<body>
-		
+		<a href="webapi/myresource">Click aici bosss\\\$\\$$</a>
 		<div class="navbar">
-		  <a href="index.jsp" style="text-decoration: none;"><i class="fa fa-home" style="font-size:20px"></i>&nbsp; Acasă </a>
+		  <a href="index.jsp" style="text-decoration: none;"><i class="fa fa-home" style="font-size:20px"></i>&nbsp; Acas&#259; </a>
 		  <a href="login.jsp" style="text-decoration: none;"><i class="fa fa-sign-in" style="font-size:20px"></i>&nbsp; Autentificare </a>
 		  <a href="logout.jsp" style="text-decoration: none;"><i class="fa fa-sign-out" style="font-size:20px"></i>&nbsp; Deconectare </a>
 		</div>
@@ -59,7 +59,7 @@
 								<input type="text" name="username" style="width: 100%;">
 								<label>Nume</label>
 								<input type="text" name="username" style="width: 100%;">
-								<button type="submit">Rezervă</button>
+								<button type="submit">Rezerv&#259;</button>
 							</form>
 						</div>
 					</div>
@@ -70,7 +70,7 @@
 		</div>
 		
 		<footer>
-			<div style="text-align: center;"> &copy; Practică 2018 </div>
+			<div style="text-align: center;"> &copy; Practic&#259; 2018 </div>
 		</footer>
 
 	</body>

@@ -22,15 +22,6 @@ public class MyResource {
     public String getIt() {
         
     	
-    	
-    	
-    	
-    	
-    	return "Got it!";
-        
-        
-        
-        
-        
+    	return RezervareSalaHandler.getInstance().getRezervari();
     }
 }
