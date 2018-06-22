@@ -71,6 +71,12 @@
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
         -->
+        
+        <dependency>
+	      <groupId>com.google.apis</groupId>
+	      <artifactId>google-api-services-calendar</artifactId>
+	      <version>v3-rev328-1.23.0</version>
+	    </dependency>
     </dependencies>
     
     <properties>
