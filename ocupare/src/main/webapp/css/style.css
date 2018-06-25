@@ -6,17 +6,6 @@ body{
 	flex-direction: column; 
 }
 
-#id{
-	width: 700px;
-	height: 700px;
-	border: 1px solid black;
-}
-
-footer > div
-{
-	font-family: "Satellite", "Roboto", sans-serif;
-}
-
 .form-body{
     background:#fff;
     padding:20px;
@@ -56,16 +45,7 @@ footer > div
 	font-size:16px;
 }
 
-.sa-innate-form input[type=text], input[type=password], input[type=file], textarea, select, email{
-    font-size:13px;
-	padding:10px;
-	border:1px solid #ccc;
-	outline:none;
-	width:100%;
-	margin:8px 0;
-	
-}
-.sa-innate-form input[type=submit]{
+.formular input[type=submit]{
     border:1px solid#e64b3b;
 	background:#e64b3b;
 	color:#fff;
@@ -74,13 +54,13 @@ footer > div
 	margin-top:5px;
 }
 
-.sa-innate-form input[type=submit]:hover{
+.formular input[type=submit]:hover{
 	border:1px solid#db3b2b;
 	background:#db3b2b;
 	color:#fff;
 	}
 	
-.sa-innate-form button{
+.formular button{
 	border:1px solid#e64b3b;
 	background: rgb(194, 24, 91);
 	color: #fff;
@@ -89,10 +69,50 @@ footer > div
 	margin-top:5px;
 }
    
-.sa-innate-form p{
+.formular p{
     font-size:13px;
     padding-top:10px;
 }	
+
+#id{
+	width: 700px;
+	height: 700px;
+	border: 1px solid black;
+}
+
+label{
+	float: left;
+}
+
+footer > div
+{
+	font-family: "Satellite", "Roboto", sans-serif;
+}	
+
+div.align1 {
+	position: relative;
+	min-height: 1px;
+	padding-left: 12px;
+	padding-right: 12px;
+	float: left;
+	width: 33.33333333333333%;
+}
+
+div.alignLeft12 {
+	margin-left: 16%;
+}
+
+iv.alignRight12 {
+	margin-right: 16%
+}
+
+.buttonAlign {
+	margin-left: 40%;
+	position: relative;
+	padding-left: 15px;
+	padding-right: 15px;
+	float: left;
+}
 
 .navbar {
   overflow: hidden;
@@ -115,9 +135,22 @@ footer > div
   font-size: 20px;
 }
 
+.navbar p {
+  font-family: "Satellite", "Roboto", sans-serif;
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px 25px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
 .navbar a:hover {
   background: white;
   color: rgb(194, 24, 91);
+  border: 1px solid rgb(194, 24, 91);
+  height: 67px;
 }
 
 .main {
@@ -402,7 +435,7 @@ body > p{
 	-webkit-user-select: none; 
 	-o-user-select: none; 
 } 
-.events.small { width: 420px; height: 500px; } 
+.events.small { width: 560px; height: 500px; } 
 .events.medium { width: 600px; height: 600px; } 
 .events.large { width: 700px; height: 700px; }  
 

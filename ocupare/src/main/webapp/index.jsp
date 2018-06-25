@@ -1,81 +1,150 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>AC</title>
-		<link href="style.css" rel="stylesheet">
-		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script> 
-		<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-		<link rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script
-			src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<style>
-			.row{
-				margin-left: 0px;
-				margin-right: 0px;
-				}
-		</style>
-	</head>
-	
-	<body>
-		
-		<div class="navbar">
-		  <a href="index.jsp" style="text-decoration: none;"><i class="fa fa-home" style="font-size:20px"></i>&nbsp; Acasă </a>
-		  <a href="login.jsp" style="text-decoration: none;"><i class="fa fa-sign-in" style="font-size:20px"></i>&nbsp; Autentificare </a>
-		  <a href="logout.jsp" style="text-decoration: none;"><i class="fa fa-sign-out" style="font-size:20px"></i>&nbsp; Deconectare </a>
-		</div>
-		
-		<br/>
-	
+<head>
+<meta charset="utf-8">
+<title>AC</title>
+<link href="css/style.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<style>
+.row {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+</style>
+</head>
+
+<body>
+
+	<div class="navbar">
+		<a href="index.jsp" style="text-decoration: none;"><i
+			class="fa fa-home" style="font-size: 20px"></i>&nbsp; Acasă </a> <a
+			href="login.jsp" style="text-decoration: none;"><i
+			class="fa fa-sign-in" style="font-size: 20px"></i>&nbsp;
+			Autentificare </a> <a href="logout.jsp" style="text-decoration: none;"><i
+			class="fa fa-sign-out" style="font-size: 20px"></i>&nbsp; Deconectare
+		</a>
+		<p>Welcome!</p>
+	</div>
+
+	<br />
+
+	<div class="container text-center">
+		<h2
+			style="font-family: Montsserrat; font-style: italic; font-size: 2.3em;">CALENDARUL
+			REZERVĂRILOR</h2>
+		<hr>
+
 		<div class="main">
 			<div class="container">
-				<div class="row">			
-					
-					<div class="col-sm-6" style="margin-left: 30px;">
-						<div class="wrapper">
-							<div id="calendarContainer"></div>
-							&nbsp;&nbsp;&nbsp;&nbsp;
-							<div id="organizerContainer"></div>
-						</div>
+				<div class="row">
+
+					<div class="wrapper">
+						<div id="calendarContainer"></div>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<div id="organizerContainer"></div>
 					</div>
-					
-					
-					<div class="col-md-6" style="margin-left: 190px;">
-						<div class="wrapper">
-							<form class="sa-innate-form" method="post">
-								<label>Nume</label>
-								<input type="text" name="username" style="width: 100%;">
-								<label>Email</label>
-								<input type="text" name="email">
-								<label>Parola</label>
-								<input type="password" name="password">
-								<label>Nume</label>
-								<input type="text" name="username" style="width: 100%;">
-								<label>Nume</label>
-								<input type="text" name="username" style="width: 100%;">
-								<button type="submit">Rezervă</button>
-							</form>
-						</div>
-					</div>
-					
-					
+
 				</div>
 			</div>
 		</div>
-		
-		<footer>
-			<div style="text-align: center;"> &copy; Practică 2018 </div>
-		</footer>
 
-	</body>
+		<br />
+
+		<h2
+			style="font-family: Montsserrat; font-style: italic; font-size: 2.3em;">REZERVĂ
+			O SALĂ</h2>
+		<hr>
+
+		<div class="main">
+			<div id="autentification" class="container-fluid">
+				<form method="post" action="">
+					<div class="align1 alignLeft12">
+							<fieldset>
+								<label class="align1" for="SEmail">Sala</label>
+								<div>
+									<input type="text" placeholder="" class="form-control"
+										name="SSala" id="SSala" required>
+								</div>
 	
-	<script>
+								<label class="align1" for="SPassword">Perioada</label>
+								<div>
+									<input type="text" placeholder="" class="form-control"
+										name="SPerioada" id="SPerioada" required>
+								</div>
+	
+								<label class="align1" for="SUsername">Tip eveniment</label>
+								<div>
+									<input type="text" placeholder="" class="form-control"
+										name="STipEveniment" id="STipEveniment" required>
+								</div>
+								<br>
+							</fieldset>
+					</div>
+
+					<div class="align1 alignRight12">
+						<fieldset>
+							<label class="align1" for="SEmail">Numar participanti</label>
+							<div>
+								<input type="text" placeholder="" class="form-control" name=""
+									id="" required>
+							</div>
+	
+							<label class="align1" for="SPassword">Altceva</label>
+							<div>
+								<input type="password" placeholder="" class="form-control"
+									name="" id="" required>
+							</div>
+	
+							<label class="align1" for="ID">Altceva</label>
+							<div>
+								<input type="text" placeholder="" class="form-control" name=""
+									id="">
+							</div>
+							<br>
+						</fieldset>
+					</div>
+	
+					<div class="buttonAlign">
+						<button type="submit" class="btn btn-success"
+							style="background-color: rgb(194, 24, 91); border: none;">Rezervă</button>
+						<button type="reset" class="btn btn-primary"
+							style="background-color: rgb(194, 24, 91); border: none">Clear</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+
+	<br />
+	<br />
+
+	<footer>
+		<div style="text-align: center;">&copy; Practică 2018</div>
+	</footer>
+
+	<br />
+	<br />
+
+</body>
+
+<script>
 	
 		  function openNav() {
 		  document.getElementById("mySidenav").style.width = "250px";
@@ -610,5 +679,5 @@
 		organizer.setOnClickListener('year-slider', function () { showEvents(); console.log("Year back slider clicked"); }, function () { showEvents(); console.log("Year next slider clicked"); });
 			
 	</script>
-	
+
 </html>
