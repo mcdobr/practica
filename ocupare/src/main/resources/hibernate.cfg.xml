@@ -18,7 +18,8 @@
       <property name = "show_sql">true</property>
       <property name = "hbm2ddl.auto">create</property>
       <!-- List of XML mapping files -->
-      <mapping class = "org.practica.ocupare.entitati.Eveniment"/>
+      <mapping class = "org.practica.ocupare.entitati.PlanEveniment"/>
+      <mapping class = "org.practica.ocupare.entitati.InstantaEveniment"/>
       
    </session-factory>
 </hibernate-configuration>
