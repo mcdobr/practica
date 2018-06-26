@@ -1,4 +1,4 @@
-package org.practica.ocupare;
+package org.practica.ocupare.servicii;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -8,12 +8,10 @@ import javax.ws.rs.core.MediaType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.practica.ocupare.entitati.Eveniment;
 
-/**
- * Root resource (exposed at "myresource" path)
- */
-@Path("myresource")
-public class MyResource {
+@Path("evenimente")
+public class ServiciuEvenimente {
 
     /**
      * Method handling HTTP GET requests. The returned object will be sent
@@ -43,12 +41,5 @@ public class MyResource {
     	session.close();
     	
         return "Got it!";
-        
-        
-        
-        
-        
     }
-    
-
 }

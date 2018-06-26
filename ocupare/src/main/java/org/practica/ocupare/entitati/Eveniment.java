@@ -1,4 +1,4 @@
-package org.practica.ocupare;
+package org.practica.ocupare.entitati;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
