@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>AC</title>
+
 <link href="css/style.css" rel="stylesheet">
 <link
 	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
@@ -41,7 +42,7 @@
 </head>
 
 <body>
-
+	
 	<div class="navbar">
 		<a href="index.jsp" style="text-decoration: none;"><i
 			class="fa fa-home" style="font-size: 20px"></i>&nbsp; Acasă </a> <a
