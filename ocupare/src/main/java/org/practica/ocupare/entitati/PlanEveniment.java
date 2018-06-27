@@ -21,7 +21,7 @@ public class PlanEveniment {
 		
 		public Periodicitate() {
 			super();
-			this.tipPeriodicitate = tipPeriodicitate.CUSTOM;
+			this.tipPeriodicitate = TipPeriodicitate.CUSTOM;
 			this.zileProgramate = new ArrayList<>();
 		}
 		

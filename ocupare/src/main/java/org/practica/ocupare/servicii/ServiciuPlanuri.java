@@ -10,7 +10,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.hibernate.Session;
+import org.practica.ocupare.entitati.BlackList;
 import org.practica.ocupare.entitati.PlanEveniment;
+import org.practica.ocupare.entitati.RezervareSala;
+import org.practica.ocupare.entitati.Sala;
+import org.practica.ocupare.entitati.TipSala;
 import org.practica.ocupare.entitati.PlanEveniment.*;
 import org.practica.ocupare.entitati.PlanEveniment.Periodicitate.TipPeriodicitate;
 import org.practica.ocupare.utile.HibernateUtil;
@@ -42,8 +46,61 @@ public class ServiciuPlanuri {
     	plan.setNume("Second event");
     	session.save(plan);*/
     	
+    	Sala sala = new Sala();
+    	sala.setID(1);
+    	sala.setNume("C0-3");
+    	sala.setNrLocuri(30);
+    	sala.setProiector(true);
+    	sala.setTip(TipSala.Laborator);
+    	session.save(sala);
+    	
+    	sala = new Sala();
+    	sala.setNume("C0-4");
+    	sala.setNrLocuri(30);
+    	sala.setProiector(false);
+    	sala.setTip(TipSala.Laborator);
+    	session.save(sala);
+    	
+    	
+    	sala = new Sala();
+    	sala.setNume("C0-5");
+    	sala.setNrLocuri(30);
+    	sala.setProiector(true);
+    	sala.setTip(TipSala.Laborator);
+    	session.save(sala);
+    	
+    	RezervareSala rs = new RezervareSala();
+    	rs.setId(1);
+    	rs.setIdEveniment(1);
+    	rs.setIdSala(1);
+    	session.save(rs);
+    	
+    	rs=new RezervareSala();
+    	rs.setIdEveniment(1);
+    	rs.setIdSala(2);
+    	session.save(rs);
+    	
+    	rs=new RezervareSala();
+    	rs.setIdEveniment(2);
+    	rs.setIdSala(2);
+    	session.save(rs);
+ 	
+    	
+    	BlackList bl = new BlackList();
+    	bl.setId(1);
+    	bl.setZi(LocalDate.parse("2018-12-25"));
+    	session.save(bl);
+    	
+    	bl=new BlackList();
+    	bl.setZi(LocalDate.parse("2018-12-26"));
+    	session.save(bl);
+    	
+    	
     	session.getTransaction().commit();
     	session.close();
+    	
+    	
+    	
     	
         return plan;
     }
