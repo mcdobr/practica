@@ -1,10 +1,15 @@
 package org.practica.ocupare.entitati;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 
@@ -18,6 +23,7 @@ public class Sala {
 	@Column(name="Nume", nullable=false)
 	String Nume;
 	
+	@ElementCollection
 	@Column(name="NrLocuri")
 	int NrLocuri;
 	
@@ -28,6 +34,10 @@ public class Sala {
 	@NotNull
 	TipSala Tip;
 
+	
+	@OneToMany
+	private Collection<RezervareSala> rezervare = new ArrayList<RezervareSala>();
+	
 	public TipSala getTip() {
 		return Tip;
 	}
@@ -36,13 +46,14 @@ public class Sala {
 		this.Tip = tip;
 	}
 
-	public int getID() {
+	public int getId() {
 		return Id;
 	}
 
-	public void setID(int iD) {
-		Id = iD;
+	public void setId(int id) {
+		Id = id;
 	}
+
 
 	public String getNume() {
 		return Nume;
@@ -66,6 +77,15 @@ public class Sala {
 
 	public void setProiector(boolean proiector) {
 		this.Proiector = proiector;
+	}
+
+
+	public Collection<RezervareSala> getRezervare() {
+		return rezervare;
+	}
+
+	public void setRezervare(Collection<RezervareSala> rezervare) {
+		this.rezervare = rezervare;
 	};
 	
 	

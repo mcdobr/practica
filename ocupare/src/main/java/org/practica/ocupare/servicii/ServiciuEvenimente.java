@@ -50,7 +50,7 @@ public class ServiciuEvenimente {
     	
     	
     	Sala sala = new Sala();
-    	sala.setID(1);
+    	sala.setId(1);
     	sala.setNume("C0-3");
     	sala.setNrLocuri(30);
     	sala.setProiector(true);

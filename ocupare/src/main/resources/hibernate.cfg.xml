@@ -21,7 +21,7 @@
       <mapping class = "org.practica.ocupare.entitati.Eveniment"/>
       <mapping class = "org.practica.ocupare.entitati.Sala"/>
       <mapping class = "org.practica.ocupare.entitati.RezervareSala"/>
-            <mapping class = "org.practica.ocupare.entitati.BlackList"/>
+      <mapping class = "org.practica.ocupare.entitati.BlackList"/>
       
    </session-factory>
 </hibernate-configuration>
