@@ -3,13 +3,19 @@ package org.practica.ocupare.entitati;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class InstantaEveniment {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private Integer planId;
+	
+	@ManyToOne
+	private PlanEveniment plan;
 	private LocalDateTime inceput;
 	private LocalDateTime sfarsit;
 	
@@ -19,11 +25,11 @@ public class InstantaEveniment {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getPlanId() {
-		return planId;
+	public PlanEveniment getPlanId() {
+		return plan;
 	}
-	public void setPlanId(Integer planId) {
-		this.planId = planId;
+	public void setPlan(PlanEveniment plan) {
+		this.plan = plan;
 	}
 	public LocalDateTime getInceput() {
 		return inceput;

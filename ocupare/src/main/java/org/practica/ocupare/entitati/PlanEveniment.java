@@ -1,35 +1,73 @@
 package org.practica.ocupare.entitati;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "PlanEveniment")
 public class PlanEveniment {
-	static class Periodicitate {
-		
+	@Embeddable
+	public static class Periodicitate {
 		public enum TipPeriodicitate {
 			UNIC, SAPTAMANAL, BISAPTAMANAL, LUNAR, ANUAL, CUSTOM
 		}
 		
-		public TipPeriodicitate tip;
-		public List<String> zileProgramate;
+		public TipPeriodicitate tipPeriodicitate;
 
-		public Periodicitate(TipPeriodicitate tip) {
+		@ElementCollection
+		public Collection<String> zileProgramate;
+		
+		public Periodicitate() {
 			super();
-			this.tip = tip;
-			this.zileProgramate = new ArrayList<String>();
+			this.tipPeriodicitate = tipPeriodicitate.CUSTOM;
+			this.zileProgramate = new ArrayList<>();
+		}
+		
+		public Periodicitate(TipPeriodicitate tipPeriodicitate, Collection<String> zileProgramate) {
+			super();
+			this.tipPeriodicitate = tipPeriodicitate;
+			this.zileProgramate = zileProgramate;
+		}
+
+		public Periodicitate(TipPeriodicitate tipPeriodicitate) {
+			this(tipPeriodicitate, new ArrayList<String>());
+		}
+		
+		
+		public TipPeriodicitate getTipPeriodicitate() {
+			return tipPeriodicitate;
+		}
+
+		public void setTipPeriodicitate(TipPeriodicitate tipPeriodicitate) {
+			this.tipPeriodicitate = tipPeriodicitate;
+		}
+
+		public Collection<String> getZileProgramate() {
+			return zileProgramate;
+		}
+
+		public void setZileProgramate(Collection<String> zileProgramate) {
+			this.zileProgramate = zileProgramate;
 		}
 	}
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
+	@Column(name = "nume", nullable = false)
 	private String nume;
-	//private Periodicitate periodicitate;
+	
+	@Embedded
+	private Periodicitate periodicitate;
+	
+	@Column(nullable = false)
 	private LocalDate inceput;
 	private LocalDate sfarsit;
+	
+	@Column(nullable = false)
 	private Integer detinatorId;
 	private String participanti;
 	private String descriere;
@@ -46,12 +84,12 @@ public class PlanEveniment {
 	public void setNume(String nume) {
 		this.nume = nume;
 	}
-	/*public Periodicitate getPeriodicitate() {
+	public Periodicitate getPeriodicitate() {
 		return periodicitate;
 	}
 	public void setPeriodicitate(Periodicitate periodicitate) {
 		this.periodicitate = periodicitate;
-	}*/
+	}
 	public LocalDate getInceput() {
 		return inceput;
 	}
