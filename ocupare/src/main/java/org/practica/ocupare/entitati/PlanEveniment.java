@@ -82,6 +82,10 @@ public class PlanEveniment {
 	@JsonIgnoreProperties("evenimenteList")
 	public Collection<Sala> saliList = new ArrayList<>();
 	
+	@ManyToMany
+	@JsonIgnoreProperties("evenimenteList")
+	public Collection<Tag> tagList = new ArrayList<>();
+	
 
 	public PlanEveniment(Integer id, String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit,
 			Integer detinatorId, String participanti, String descriere) {
@@ -152,9 +156,24 @@ public class PlanEveniment {
 	public void setSaliList(Collection<Sala> saliList) {
 		this.saliList = saliList;
 	}
+	
+	
+	
+	public Collection<Tag> getTagList() {
+		return tagList;
+	}
+	public void setTagList(Collection<Tag> tagList) {
+		this.tagList = tagList;
+	}
 	public void adaugaSala(Sala s)
 	{
 		this.saliList.add(s);
 		s.getEvenimenteList().add(this);
+	}
+	
+	public void adaugaTag(Tag t)
+	{
+		this.tagList.add(t);
+		t.getEvenimenteList().add(this);
 	}
 }

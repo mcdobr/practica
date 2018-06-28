@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Tag{
@@ -27,12 +28,21 @@ public class Tag{
 	@Column(name="descriere", nullable=false)
 	public String descriere;
 
+	
+	public Tag(int id, String nume, String descriere) {
+		super();
+		this.id = id;
+		this.nume = nume;
+		this.descriere = descriere;
+		this.evenimenteList = new ArrayList<>();
+	}
+
 	public int getId() {
 		return id;
 	}
 	
 	@ManyToMany
-	@JsonBackReference
+	@JsonIgnoreProperties("tagList")
 	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
 
 
@@ -67,6 +77,12 @@ public class Tag{
 	@Override
 	public String toString() {
 		return "Tag [id=" + id + ", nume=" + nume + ", descriere=" + descriere + "]";
+	}
+	
+	public void adaugaEveniment(PlanEveniment pe)
+	{
+		this.evenimenteList.add(pe);
+		pe.getTagList().add(this);
 	}
 	
 

@@ -24,7 +24,6 @@
       <mapping class = "org.practica.ocupare.entitati.InstantaEveniment"/>
       <mapping class = "org.practica.ocupare.entitati.User"/>
       <mapping class = "org.practica.ocupare.entitati.Tag"/>
-      <mapping class = "org.practica.ocupare.entitati.EvenimentTag"/>
       
    </session-factory>
 </hibernate-configuration>
