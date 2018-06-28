@@ -8,7 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Tag{
@@ -28,17 +31,17 @@ public class Tag{
 		return id;
 	}
 	
-	@OneToMany
-	@JoinTable(name="Tag_Eveniment")
-	public Collection<EvenimentTag> evenimente_tag = new ArrayList<EvenimentTag>();
-	
+	@ManyToMany
+	@JsonBackReference
+	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
 
-	public Collection<EvenimentTag> getEvenimente_tag() {
-		return evenimente_tag;
+
+	public Collection<PlanEveniment> getEvenimenteList() {
+		return evenimenteList;
 	}
 
-	public void setEvenimente_tag(Collection<EvenimentTag> evenimente_tag) {
-		this.evenimente_tag = evenimente_tag;
+	public void setEvenimenteList(Collection<PlanEveniment> evenimenteList) {
+		this.evenimenteList = evenimenteList;
 	}
 
 	public void setId(int id) {

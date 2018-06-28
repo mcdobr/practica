@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import org.hibernate.Session;
 import org.practica.ocupare.entitati.BlackList;
 import org.practica.ocupare.entitati.PlanEveniment;
-import org.practica.ocupare.entitati.RezervareSala;
 import org.practica.ocupare.entitati.Sala;
 import org.practica.ocupare.entitati.TipSala;
 import org.practica.ocupare.entitati.PlanEveniment.*;
@@ -27,14 +26,38 @@ public class ServiciuPlanuri {
     @Path("{planID}")
     @Produces(MediaType.APPLICATION_JSON)
     public PlanEveniment getPlan(@PathParam("planID") int planID) {
+    	
     	Session session = HibernateUtil.getSessionFactory().openSession();
     	session.beginTransaction();
+    	
+    	PlanEveniment pe1 = new PlanEveniment(2, "Curs BD", new Periodicitate(), LocalDate.now(), LocalDate.now().plusDays(1), 1, "", "");
+    	PlanEveniment pe2 = new PlanEveniment(3, "Curs RC", new Periodicitate(), LocalDate.now(), LocalDate.now().plusDays(1), 1, "", "");
+
+    	
+    	Sala s1 = new Sala(5, "AC01", 150, true, TipSala.Amfiteatru);
+    	Sala s2 = new Sala(6, "AC03", 80, false, TipSala.Seminar); 
+    	
+    	
+    	pe1.adaugaSala(s1);
+    	pe1.adaugaSala(s2);    	
+    	pe2.adaugaSala(s1);
+    	
+    	
+    	session.save(s1);
+    	session.save(s2);
+    	session.save(pe1);
+    	session.save(pe2);
+    	
+    	session.getTransaction().commit();
+    	session.close();
+    	
+    	/*
     	
     	PlanEveniment plan = session.get(PlanEveniment.class, planID);
     	
     	session.getTransaction().commit();
-    	session.close();
-        return plan;
+    	session.close();*/
+        return pe1;
     	
     	/*
         PlanEveniment plan = new PlanEveniment();
