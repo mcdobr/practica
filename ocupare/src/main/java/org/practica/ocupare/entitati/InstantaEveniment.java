@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,7 +16,9 @@ public class InstantaEveniment {
 	private Integer id;
 	
 	@ManyToOne
+	@JoinColumn(name="planId")
 	private PlanEveniment plan;
+	
 	private LocalDateTime inceput;
 	private LocalDateTime sfarsit;
 	

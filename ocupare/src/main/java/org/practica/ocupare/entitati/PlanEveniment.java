@@ -23,8 +23,6 @@ public class PlanEveniment {
 		public Collection<String> zileProgramate;
 
 		
-		
-		
 		public Periodicitate() {
 			super();
 			this.tipPeriodicitate = TipPeriodicitate.CUSTOM;
@@ -73,8 +71,6 @@ public class PlanEveniment {
 	private LocalDate inceput;
 	private LocalDate sfarsit;
 	
-	@Column(nullable = false)
-	private Integer detinatorId;
 	private String participanti;
 	private String descriere;
 	
@@ -86,7 +82,22 @@ public class PlanEveniment {
 	@JsonIgnoreProperties("evenimenteList")
 	public Collection<Tag> tagList = new ArrayList<>();
 	
+	@ManyToOne
+	@JoinColumn(name="detinatorId")
+	private User user;
+	
+	@OneToMany
+	@JoinTable(name="Eveniment_InstanteEveniment",
+			joinColumns=@JoinColumn(name="id"),inverseJoinColumns=@JoinColumn(name="planId"))
+	Collection<InstantaEveniment> instante_evenimente = new ArrayList<InstantaEveniment>();
 
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public PlanEveniment(Integer id, String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit,
 			Integer detinatorId, String participanti, String descriere) {
 		super();
@@ -95,7 +106,6 @@ public class PlanEveniment {
 		this.periodicitate = periodicitate;
 		this.inceput = inceput;
 		this.sfarsit = sfarsit;
-		this.detinatorId = detinatorId;
 		this.participanti = participanti;
 		this.descriere = descriere;
 		this.saliList = new ArrayList<Sala>();
@@ -130,12 +140,7 @@ public class PlanEveniment {
 	public void setSfarsit(LocalDate sfarsit) {
 		this.sfarsit = sfarsit;
 	}
-	public Integer getDetinatorId() {
-		return detinatorId;
-	}
-	public void setDetinatorId(Integer detinatorId) {
-		this.detinatorId = detinatorId;
-	}
+	
 	public String getParticipanti() {
 		return participanti;
 	}
