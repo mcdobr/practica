@@ -8,7 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Tag{
@@ -24,21 +28,30 @@ public class Tag{
 	@Column(name="descriere", nullable=false)
 	public String descriere;
 
+	
+	public Tag(int id, String nume, String descriere) {
+		super();
+		this.id = id;
+		this.nume = nume;
+		this.descriere = descriere;
+		this.evenimenteList = new ArrayList<>();
+	}
+
 	public int getId() {
 		return id;
 	}
 	
-	@OneToMany
-	@JoinTable(name="Tag_Eveniment")
-	public Collection<EvenimentTag> evenimente_tag = new ArrayList<EvenimentTag>();
-	
+	@ManyToMany
+	@JsonIgnoreProperties("tagList")
+	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
 
-	public Collection<EvenimentTag> getEvenimente_tag() {
-		return evenimente_tag;
+
+	public Collection<PlanEveniment> getEvenimenteList() {
+		return evenimenteList;
 	}
 
-	public void setEvenimente_tag(Collection<EvenimentTag> evenimente_tag) {
-		this.evenimente_tag = evenimente_tag;
+	public void setEvenimenteList(Collection<PlanEveniment> evenimenteList) {
+		this.evenimenteList = evenimenteList;
 	}
 
 	public void setId(int id) {
@@ -64,6 +77,12 @@ public class Tag{
 	@Override
 	public String toString() {
 		return "Tag [id=" + id + ", nume=" + nume + ", descriere=" + descriere + "]";
+	}
+	
+	public void adaugaEveniment(PlanEveniment pe)
+	{
+		this.evenimenteList.add(pe);
+		pe.getTagList().add(this);
 	}
 	
 

@@ -1,11 +1,18 @@
 package org.practica.ocupare.entitati;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity(name="Sala")
@@ -28,6 +35,22 @@ public class Sala {
 	@NotNull
 	TipSala Tip;
 
+	
+	@ManyToMany
+	@JsonIgnoreProperties("saliList")
+	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
+	
+	public Sala(int id, String nume, int nrLocuri, boolean proiector, TipSala tip) {
+		super();
+		Id = id;
+		Nume = nume;
+		NrLocuri = nrLocuri;
+		Proiector = proiector;
+		Tip = tip;
+		this.evenimenteList = new ArrayList<>();
+	}
+
+	
 	public TipSala getTip() {
 		return Tip;
 	}
@@ -66,7 +89,22 @@ public class Sala {
 
 	public void setProiector(boolean proiector) {
 		this.Proiector = proiector;
+	}
+
+	public Collection<PlanEveniment> getEvenimenteList() {
+		return evenimenteList;
+	}
+
+	public void setEvenimenteList(Collection<PlanEveniment> evenimenteList) {
+		this.evenimenteList = evenimenteList;
 	};
+	
+	
+	public void adaugaEveniment(PlanEveniment pe)
+	{
+		this.evenimenteList.add(pe);
+		pe.getSaliList().add(this);
+	}
 	
 	
 	

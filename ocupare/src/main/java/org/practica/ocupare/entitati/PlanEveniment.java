@@ -5,6 +5,9 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "PlanEveniment")
 public class PlanEveniment {
@@ -18,6 +21,9 @@ public class PlanEveniment {
 
 		@ElementCollection(fetch=FetchType.EAGER)
 		public Collection<String> zileProgramate;
+
+		
+		
 		
 		public Periodicitate() {
 			super();
@@ -54,7 +60,7 @@ public class PlanEveniment {
 	}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name = "nume", nullable = false)
@@ -72,6 +78,28 @@ public class PlanEveniment {
 	private String participanti;
 	private String descriere;
 	
+	@ManyToMany
+	@JsonIgnoreProperties("evenimenteList")
+	public Collection<Sala> saliList = new ArrayList<>();
+	
+	@ManyToMany
+	@JsonIgnoreProperties("evenimenteList")
+	public Collection<Tag> tagList = new ArrayList<>();
+	
+
+	public PlanEveniment(Integer id, String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit,
+			Integer detinatorId, String participanti, String descriere) {
+		super();
+		this.id = id;
+		this.nume = nume;
+		this.periodicitate = periodicitate;
+		this.inceput = inceput;
+		this.sfarsit = sfarsit;
+		this.detinatorId = detinatorId;
+		this.participanti = participanti;
+		this.descriere = descriere;
+		this.saliList = new ArrayList<Sala>();
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -119,5 +147,33 @@ public class PlanEveniment {
 	}
 	public void setDescriere(String descriere) {
 		this.descriere = descriere;
+	}
+	
+	
+	public Collection<Sala> getSaliList() {
+		return saliList;
+	}
+	public void setSaliList(Collection<Sala> saliList) {
+		this.saliList = saliList;
+	}
+	
+	
+	
+	public Collection<Tag> getTagList() {
+		return tagList;
+	}
+	public void setTagList(Collection<Tag> tagList) {
+		this.tagList = tagList;
+	}
+	public void adaugaSala(Sala s)
+	{
+		this.saliList.add(s);
+		s.getEvenimenteList().add(this);
+	}
+	
+	public void adaugaTag(Tag t)
+	{
+		this.tagList.add(t);
+		t.getEvenimenteList().add(this);
 	}
 }
