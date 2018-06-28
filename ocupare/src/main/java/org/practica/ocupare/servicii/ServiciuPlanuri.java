@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -23,9 +24,19 @@ import org.practica.ocupare.utile.HibernateUtil;
 public class ServiciuPlanuri {
 	
     @GET
+    @Path("{planID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public PlanEveniment getIt() {
+    public PlanEveniment getPlan(@PathParam("planID") int planID) {
+    	Session session = HibernateUtil.getSessionFactory().openSession();
+    	session.beginTransaction();
     	
+    	PlanEveniment plan = session.get(PlanEveniment.class, planID);
+    	
+    	session.getTransaction().commit();
+    	session.close();
+        return plan;
+    	
+    	/*
         PlanEveniment plan = new PlanEveniment();
     	//plan.setId(1);
     	plan.setNume("Curs SD");
@@ -40,11 +51,11 @@ public class ServiciuPlanuri {
     	session.beginTransaction();
     	session.save(plan);
     	
-    	/*
+    	
     	plan = new PlanEveniment();
     	plan.setId(2);
     	plan.setNume("Second event");
-    	session.save(plan);*/
+    	session.save(plan);
     	
     	Sala sala = new Sala();
     	sala.setID(1);
@@ -98,10 +109,6 @@ public class ServiciuPlanuri {
     	
     	session.getTransaction().commit();
     	session.close();
-    	
-    	
-    	
-    	
-        return plan;
+    	*/
     }
 }

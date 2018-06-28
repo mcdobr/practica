@@ -16,7 +16,7 @@ public class PlanEveniment {
 		
 		public TipPeriodicitate tipPeriodicitate;
 
-		@ElementCollection
+		@ElementCollection(fetch=FetchType.EAGER)
 		public Collection<String> zileProgramate;
 		
 		public Periodicitate() {
