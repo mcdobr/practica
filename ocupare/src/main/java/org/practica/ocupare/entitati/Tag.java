@@ -29,9 +29,8 @@ public class Tag{
 	public String descriere;
 
 	
-	public Tag(int id, String nume, String descriere) {
+	public Tag(String nume, String descriere) {
 		super();
-		this.id = id;
 		this.nume = nume;
 		this.descriere = descriere;
 		this.evenimenteList = new ArrayList<>();

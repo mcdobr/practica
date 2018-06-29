@@ -1,8 +1,8 @@
 package org.practica.ocupare.servicii;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,50 +11,57 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.hibernate.Session;
-import org.practica.ocupare.entitati.BlackList;
+import org.practica.ocupare.entitati.InstantaEveniment;
 import org.practica.ocupare.entitati.PlanEveniment;
 import org.practica.ocupare.entitati.Sala;
 import org.practica.ocupare.entitati.Tag;
 import org.practica.ocupare.entitati.TipSala;
+import org.practica.ocupare.entitati.User;
+import org.practica.ocupare.functii.Encrypt;
 import org.practica.ocupare.entitati.PlanEveniment.*;
-import org.practica.ocupare.entitati.PlanEveniment.Periodicitate.TipPeriodicitate;
 import org.practica.ocupare.utile.HibernateUtil;
 
 @Path("planuri")
-public class ServiciuPlanuri {
+public class ServiciuPlanuri2 {
 	
     @GET
     @Path("{planID}")
     @Produces(MediaType.APPLICATION_JSON)
-    public PlanEveniment getPlan(@PathParam("planID") int planID) {
+    public User getPlan(@PathParam("planID") int planID) {
     	
     	Session session = HibernateUtil.getSessionFactory().openSession();
     	session.beginTransaction();
     	
-    	PlanEveniment pe1 = new PlanEveniment(2, "Curs BD", new Periodicitate(), LocalDate.now(), LocalDate.now().plusDays(1), 1, "", "");
-    	PlanEveniment pe2 = new PlanEveniment(3, "Curs RC", new Periodicitate(), LocalDate.now(), LocalDate.now().plusDays(1), 1, "", "");
-
-    	
-    	Sala s1 = new Sala(5, "AC01", 150, true, TipSala.Amfiteatru);
-    	Sala s2 = new Sala(6, "AC03", 80, false, TipSala.Seminar); 
-    	
-    	Tag t1 = new Tag(1, "CTI", "tyvgfyvg");
-    	Tag t2 = new Tag(1, "IS", "bla");    	
-    	
-    	pe1.adaugaSala(s1);
-    	pe1.adaugaSala(s2);    	
-    	pe2.adaugaSala(s1);
-    	pe1.adaugaTag(t1);
-    	pe1.adaugaTag(t2);
-    	pe2.adaugaTag(t2);
+    	PlanEveniment pe3 = new PlanEveniment("Curs SD",new Periodicitate(),LocalDate.now(),LocalDate.now(),"Anul III","Liste circulare");
     	
     	
+    	Sala s1 = new Sala("AC01", 150, true, TipSala.Amfiteatru);
+    	
+    	Tag t1 = new Tag("CTI", "2 ore");
+    
+    	pe3.adaugaSala(s1);
+    	pe3.adaugaTag(t1);
+  
+    	
+    	User user = new User();
+    	user.setNume("Florin Ungureanu");
+    	user.setEmail("fungurea@cs.tuiasi.ro");
+    	user.setRol(" prof. dr. ing.");
+    	user.setParola(Encrypt.generateHash("florina.ungureanu"));
+    	pe3.setUser(user);
+    	
+    	InstantaEveniment ie = new InstantaEveniment();
+    	ie.setInceput(LocalDateTime.of(pe3.getInceput(), LocalTime.of(8, 0)));
+    	ie.setSfarsit(LocalDateTime.of(pe3.getSfarsit(), LocalTime.of(9, 50)));
+    	ie.setPlan(pe3);
+    	pe3.getInstante_evenimente().add(ie);
+    	user.getEvenimente().add(pe3);
+    	
+    	session.save(pe3);
+    	session.save(ie);
+    	session.save(user);
     	session.save(s1);
-    	session.save(s2);
-    	session.save(pe1);
-    	session.save(pe2);
     	session.save(t1);
-    	session.save(t2);
     	
     	session.getTransaction().commit();
     	session.close();
@@ -65,7 +72,7 @@ public class ServiciuPlanuri {
     	
     	session.getTransaction().commit();
     	session.close();*/
-        return pe1;
+        return user;
     	
     	/*
         PlanEveniment plan = new PlanEveniment();

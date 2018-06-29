@@ -6,16 +6,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 public class InstantaEveniment {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@ManyToOne
-	private PlanEveniment plan;
+	@JoinColumn(name="planId")
+	@JsonIgnoreProperties("planId")
+	private PlanEveniment planId;
+	
 	private LocalDateTime inceput;
 	private LocalDateTime sfarsit;
 	
@@ -26,10 +36,10 @@ public class InstantaEveniment {
 		this.id = id;
 	}
 	public PlanEveniment getPlanId() {
-		return plan;
+		return planId;
 	}
 	public void setPlan(PlanEveniment plan) {
-		this.plan = plan;
+		this.planId = plan;
 	}
 	public LocalDateTime getInceput() {
 		return inceput;

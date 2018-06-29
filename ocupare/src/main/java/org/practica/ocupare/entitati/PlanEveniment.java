@@ -5,8 +5,11 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "PlanEveniment")
@@ -22,8 +25,6 @@ public class PlanEveniment {
 		@ElementCollection(fetch=FetchType.EAGER)
 		public Collection<String> zileProgramate;
 
-		
-		
 		
 		public Periodicitate() {
 			super();
@@ -73,8 +74,6 @@ public class PlanEveniment {
 	private LocalDate inceput;
 	private LocalDate sfarsit;
 	
-	@Column(nullable = false)
-	private Integer detinatorId;
 	private String participanti;
 	private String descriere;
 	
@@ -86,16 +85,36 @@ public class PlanEveniment {
 	@JsonIgnoreProperties("evenimenteList")
 	public Collection<Tag> tagList = new ArrayList<>();
 	
+	@ManyToOne
+	@JoinColumn(name="detinatorId")
+	private User user;
+	
+	@OneToMany
+	@JoinTable(name="Eveniment_InstanteEveniment",
+			joinColumns=@JoinColumn(name="id"),inverseJoinColumns=@JoinColumn(name="planId"))
+	@JsonIgnoreProperties("planId")
+	Collection<InstantaEveniment> instante_evenimente = new ArrayList<InstantaEveniment>();
 
-	public PlanEveniment(Integer id, String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit,
-			Integer detinatorId, String participanti, String descriere) {
+	
+	public Collection<InstantaEveniment> getInstante_evenimente() {
+		return instante_evenimente;
+	}
+	public void setInstante_evenimente(Collection<InstantaEveniment> instante_evenimente) {
+		this.instante_evenimente = instante_evenimente;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public PlanEveniment(String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit,
+			String participanti, String descriere) {
 		super();
-		this.id = id;
 		this.nume = nume;
 		this.periodicitate = periodicitate;
 		this.inceput = inceput;
 		this.sfarsit = sfarsit;
-		this.detinatorId = detinatorId;
 		this.participanti = participanti;
 		this.descriere = descriere;
 		this.saliList = new ArrayList<Sala>();
@@ -130,12 +149,7 @@ public class PlanEveniment {
 	public void setSfarsit(LocalDate sfarsit) {
 		this.sfarsit = sfarsit;
 	}
-	public Integer getDetinatorId() {
-		return detinatorId;
-	}
-	public void setDetinatorId(Integer detinatorId) {
-		this.detinatorId = detinatorId;
-	}
+	
 	public String getParticipanti() {
 		return participanti;
 	}

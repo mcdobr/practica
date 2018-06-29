@@ -1,10 +1,18 @@
 package org.practica.ocupare.entitati;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User {
@@ -24,8 +32,22 @@ public class User {
 	@Column(name = "parola", nullable = false)
 	public String parola;
 	
+	public Collection<PlanEveniment> getEvenimente() {
+		return evenimente;
+	}
+
+	public void setEvenimente(Collection<PlanEveniment> evenimente) {
+		this.evenimente = evenimente;
+	}
+
 	@Column(name = "rol", nullable = false)
 	public String rol;
+	
+	@OneToMany
+	@JoinTable(name="User_PlanEveniment",
+		joinColumns=@JoinColumn(name="id"),inverseJoinColumns=@JoinColumn(name="detinatorId"))
+	@JsonIgnoreProperties("user")
+	Collection<PlanEveniment> evenimente = new ArrayList<PlanEveniment>();
 
 	public int getId() {
 		return id;
