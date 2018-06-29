@@ -5,8 +5,11 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "PlanEveniment")
@@ -89,19 +92,25 @@ public class PlanEveniment {
 	@OneToMany
 	@JoinTable(name="Eveniment_InstanteEveniment",
 			joinColumns=@JoinColumn(name="id"),inverseJoinColumns=@JoinColumn(name="planId"))
+	@JsonIgnoreProperties("planId")
 	Collection<InstantaEveniment> instante_evenimente = new ArrayList<InstantaEveniment>();
 
 	
+	public Collection<InstantaEveniment> getInstante_evenimente() {
+		return instante_evenimente;
+	}
+	public void setInstante_evenimente(Collection<InstantaEveniment> instante_evenimente) {
+		this.instante_evenimente = instante_evenimente;
+	}
 	public User getUser() {
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public PlanEveniment(Integer id, String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit,
-			Integer detinatorId, String participanti, String descriere) {
+	public PlanEveniment(String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit,
+			String participanti, String descriere) {
 		super();
-		this.id = id;
 		this.nume = nume;
 		this.periodicitate = periodicitate;
 		this.inceput = inceput;

@@ -40,9 +40,8 @@ public class Sala {
 	@JsonIgnoreProperties("saliList")
 	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
 	
-	public Sala(int id, String nume, int nrLocuri, boolean proiector, TipSala tip) {
+	public Sala(String nume, int nrLocuri, boolean proiector, TipSala tip) {
 		super();
-		Id = id;
 		Nume = nume;
 		NrLocuri = nrLocuri;
 		Proiector = proiector;

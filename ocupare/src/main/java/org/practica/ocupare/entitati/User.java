@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class User {
 
@@ -44,6 +46,7 @@ public class User {
 	@OneToMany
 	@JoinTable(name="User_PlanEveniment",
 		joinColumns=@JoinColumn(name="id"),inverseJoinColumns=@JoinColumn(name="detinatorId"))
+	@JsonIgnoreProperties("user")
 	Collection<PlanEveniment> evenimente = new ArrayList<PlanEveniment>();
 
 	public int getId() {
