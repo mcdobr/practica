@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,6 +29,7 @@ public class Tag{
 	@Column(name="descriere", nullable=false)
 	public String descriere;
 
+	public Tag(){}
 	
 	public Tag(String nume, String descriere) {
 		super();
@@ -40,7 +42,7 @@ public class Tag{
 		return id;
 	}
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JsonIgnoreProperties("tagList")
 	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
 

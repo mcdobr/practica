@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +37,8 @@ public class Sala {
 	TipSala Tip;
 
 	
-	@ManyToMany
-	@JsonIgnoreProperties("saliList")
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JsonIgnoreProperties("saliList")	
 	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
 	
 	public Sala(String nume, int nrLocuri, boolean proiector, TipSala tip) {
@@ -49,6 +50,8 @@ public class Sala {
 		this.evenimenteList = new ArrayList<>();
 	}
 
+	
+	public Sala() {}
 	
 	public TipSala getTip() {
 		return Tip;
