@@ -5,51 +5,64 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
-@Entity(name="Sala")
+@Entity(name = "Sala")
+@Table(name = "Sala")
 public class Sala {
+	public static enum TipSala {
+		AMFITEATRU, LABORATOR, SEMINAR, BIROU, CONFERINTE
+
+	}
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="Id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Column(name = "Id")
 	int Id;
 
-	@Column(name="Nume", nullable=false)
+	@Column(name = "Nume", nullable = false)
 	String Nume;
-	
-	@Column(name="NrLocuri")
+
+	@Column(name = "NrLocuri")
 	int NrLocuri;
-	
-	@Column(name="Proiector", nullable=false)
+
+	@Column(name = "Proiector", nullable = false)
 	boolean Proiector;
-	
-	@Column(name="Tip", nullable=false)
+
+	@Column(name = "Tip", nullable = false)
 	@NotNull
 	TipSala Tip;
 
-	
 	@ManyToMany
-	@JsonIgnoreProperties("saliList")
-	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
-	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	//@JsonIgnoreProperties("{sali, planuri}")
+	@JsonIgnore
+	private Collection<Plan> planuri = new ArrayList<>();
+
 	public Sala(String nume, int nrLocuri, boolean proiector, TipSala tip) {
 		super();
 		Nume = nume;
 		NrLocuri = nrLocuri;
 		Proiector = proiector;
 		Tip = tip;
-		this.evenimenteList = new ArrayList<>();
+		this.planuri = new ArrayList<>();
 	}
 
-	
+	public Sala() {
+	}
+
 	public TipSala getTip() {
 		return Tip;
 	}
@@ -90,21 +103,16 @@ public class Sala {
 		this.Proiector = proiector;
 	}
 
-	public Collection<PlanEveniment> getEvenimenteList() {
-		return evenimenteList;
+	public Collection<Plan> getPlanuri() {
+		return planuri;
 	}
 
-	public void setEvenimenteList(Collection<PlanEveniment> evenimenteList) {
-		this.evenimenteList = evenimenteList;
-	};
-	
-	
-	public void adaugaEveniment(PlanEveniment pe)
-	{
-		this.evenimenteList.add(pe);
-		pe.getSaliList().add(this);
+	public void setPlanuri(Collection<Plan> planuri) {
+		this.planuri = planuri;
 	}
-	
-	
-	
+
+	public void adaugaEveniment(Plan pe) {
+		this.planuri.add(pe);
+		pe.getSali().add(this);
+	}
 }

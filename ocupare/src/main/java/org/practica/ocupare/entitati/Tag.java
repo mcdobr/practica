@@ -4,53 +4,56 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Tag{
-	
+public class Tag {
+
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
-	
-	@Column(name="nume", nullable=false, length=20)
+
+	@Column(name = "nume", nullable = false, length = 20)
 	public String nume;
-	
-	@Column(name="descriere", nullable=false)
+
+	@Column(name = "descriere", nullable = false)
 	public String descriere;
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	//@JsonIgnoreProperties("{taguri, sali}")
+	@JsonIgnore
+	private Collection<Plan> planuri = new ArrayList<>();
 	
+	public Tag() {}
+
 	public Tag(String nume, String descriere) {
 		super();
 		this.nume = nume;
 		this.descriere = descriere;
-		this.evenimenteList = new ArrayList<>();
+		this.planuri = new ArrayList<>();
 	}
 
 	public int getId() {
 		return id;
 	}
-	
-	@ManyToMany
-	@JsonIgnoreProperties("tagList")
-	private Collection<PlanEveniment> evenimenteList = new ArrayList<>();
 
-
-	public Collection<PlanEveniment> getEvenimenteList() {
-		return evenimenteList;
+	public Collection<Plan> getPlanuri() {
+		return planuri;
 	}
 
-	public void setEvenimenteList(Collection<PlanEveniment> evenimenteList) {
-		this.evenimenteList = evenimenteList;
+	public void setPlanuri(Collection<Plan> planuri) {
+		this.planuri = planuri;
 	}
 
 	public void setId(int id) {
@@ -77,12 +80,10 @@ public class Tag{
 	public String toString() {
 		return "Tag [id=" + id + ", nume=" + nume + ", descriere=" + descriere + "]";
 	}
-	
-	public void adaugaEveniment(PlanEveniment pe)
-	{
-		this.evenimenteList.add(pe);
-		pe.getTagList().add(this);
+
+	public void adaugaEveniment(Plan pe) {
+		this.planuri.add(pe);
+		pe.getTaguri().add(this);
 	}
-	
 
 }

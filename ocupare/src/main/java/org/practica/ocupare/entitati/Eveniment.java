@@ -9,47 +9,50 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-public class InstantaEveniment {
+public class Eveniment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="planId")
-	@JsonIgnoreProperties("planId")
-	private PlanEveniment planId;
-	
+	@JoinColumn(name = "plan")
+	@JsonIgnoreProperties("plan")
+	private Plan plan;
+
 	private LocalDateTime inceput;
 	private LocalDateTime sfarsit;
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public PlanEveniment getPlanId() {
-		return planId;
+
+	public Plan getPlan() {
+		return plan;
 	}
-	public void setPlan(PlanEveniment plan) {
-		this.planId = plan;
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
+
 	public LocalDateTime getInceput() {
 		return inceput;
 	}
+
 	public void setInceput(LocalDateTime inceput) {
 		this.inceput = inceput;
 	}
+
 	public LocalDateTime getSfarsit() {
 		return sfarsit;
 	}
+
 	public void setSfarsit(LocalDateTime sfarsit) {
 		this.sfarsit = sfarsit;
 	}

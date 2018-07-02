@@ -11,18 +11,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.hibernate.Session;
-import org.practica.ocupare.entitati.InstantaEveniment;
-import org.practica.ocupare.entitati.PlanEveniment;
+import org.practica.ocupare.entitati.Eveniment;
+import org.practica.ocupare.entitati.Plan;
 import org.practica.ocupare.entitati.Sala;
+import org.practica.ocupare.entitati.Sala.TipSala;
 import org.practica.ocupare.entitati.Tag;
-import org.practica.ocupare.entitati.TipSala;
 import org.practica.ocupare.entitati.User;
 import org.practica.ocupare.functii.Encrypt;
-import org.practica.ocupare.entitati.PlanEveniment.*;
+import org.practica.ocupare.entitati.Plan.*;
 import org.practica.ocupare.utile.HibernateUtil;
 
 @Path("planuri")
-public class ServiciuPlanuri2 {
+public class ServiciuPlanuri {
 	
     @GET
     @Path("{planID}")
@@ -32,11 +32,8 @@ public class ServiciuPlanuri2 {
     	Session session = HibernateUtil.getSessionFactory().openSession();
     	session.beginTransaction();
     	
-    	PlanEveniment pe3 = new PlanEveniment("Curs SD",new Periodicitate(),LocalDate.now(),LocalDate.now(),"Anul III","Liste circulare");
-    	
-    	
-    	Sala s1 = new Sala("AC01", 150, true, TipSala.Amfiteatru);
-    	
+    	Plan pe3 = new Plan("Curs SD",new Periodicitate(),LocalDate.now(),LocalDate.now(),"Anul III","Liste circulare");
+    	Sala s1 = new Sala("AC01", 150, true, TipSala.AMFITEATRU);
     	Tag t1 = new Tag("CTI", "2 ore");
     
     	pe3.adaugaSala(s1);
@@ -50,12 +47,12 @@ public class ServiciuPlanuri2 {
     	user.setParola(Encrypt.generateHash("florina.ungureanu"));
     	pe3.setUser(user);
     	
-    	InstantaEveniment ie = new InstantaEveniment();
+    	Eveniment ie = new Eveniment();
     	ie.setInceput(LocalDateTime.of(pe3.getInceput(), LocalTime.of(8, 0)));
     	ie.setSfarsit(LocalDateTime.of(pe3.getSfarsit(), LocalTime.of(9, 50)));
     	ie.setPlan(pe3);
-    	pe3.getInstante_evenimente().add(ie);
-    	user.getEvenimente().add(pe3);
+    	pe3.getEvenimente().add(ie);
+    	user.getPlanuri().add(pe3);
     	
     	session.save(pe3);
     	session.save(ie);
