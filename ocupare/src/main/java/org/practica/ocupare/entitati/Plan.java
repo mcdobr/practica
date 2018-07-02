@@ -94,7 +94,8 @@ public class Plan {
 
 	@OneToMany
 	@JoinTable(name = "Plan_Eveniment", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "plan"))
-	@JsonIgnoreProperties("plan")
+	//@JsonIgnoreProperties("plan")
+	@JsonIgnore
 	Collection<Eveniment> evenimente;
 
 	public Plan() {
