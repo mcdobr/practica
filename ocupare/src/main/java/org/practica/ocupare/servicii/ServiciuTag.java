@@ -1,15 +1,18 @@
 package org.practica.ocupare.servicii;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.hibernate.Session;
 import org.practica.ocupare.entitati.Tag;
@@ -40,7 +43,9 @@ public class ServiciuTag {
 	public List<Tag> getTags()
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
-    	List<Tag> tags = new ArrayList<Tag>();
+		session.beginTransaction();
+    	
+		List<Tag> tags = new ArrayList<Tag>();
 		tags = session.createQuery("from Tag").list();
 
     	session.getTransaction().commit();
@@ -50,24 +55,46 @@ public class ServiciuTag {
 	}
 	
 	@DELETE
-	@Path("/tagDelete/{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Tag> deleteTag(@QueryParam("id") Integer id)
+	public Response deleteTag(@PathParam("id") Integer id)
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
-    	List<Tag> tags = new ArrayList<Tag>();
-    	for(Tag t: tags)
+		session.beginTransaction();
+    	
+		Tag t = session.get(Tag.class, id);
+		if(t!=null)
+			session.delete(t);
+		
+    	session.getTransaction().commit();
+    	session.close();
+    	return Response.ok().build();
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createTag(Tag t)
+	{
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+    	
+		List<Tag> tags = new ArrayList<Tag>();
+    	for(Tag tt: tags)
     	{
-    		if(t.getId()==id)
+    		if(tt.getId()==t.getId())
     		{
-    			session.delete(t);
+    	
     			
     		}
     	}
+		
+    	session.save(t);
 
     	session.getTransaction().commit();
-    	session.close();
-    	return tags;
+		session.close();
+		
+		return Response.ok().build();
+	
 	}
 	
 }
