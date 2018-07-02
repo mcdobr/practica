@@ -8,37 +8,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name="BlackList")
+@Entity(name = "BlackList")
 public class BlackList {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="Id")
-	int Id;
-	
-	
-	@Column(name="Zi")
-	LocalDate Zi;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id")
+	int Id;
+
+	@Column(name = "Zi")
+	LocalDate Zi;
 
 	public int getId() {
 		return Id;
 	}
 
+	public LocalDate getZi() {
+		return Zi;
+	}
 
 	public void setId(int id) {
 		Id = id;
 	}
 
-
-	public LocalDate getZi() {
-		return Zi;
-	}
-
-
 	public void setZi(LocalDate zi) {
 		Zi = zi;
 	}
-	
 
 }
