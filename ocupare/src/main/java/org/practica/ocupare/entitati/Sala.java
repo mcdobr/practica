@@ -32,11 +32,11 @@ public class Sala {
 	//@Column(name = "Id")
 	int Id;
 
-	@Column(name = "Nume", nullable = false)
+	@Column(name = "Nume", nullable = false, unique = true)
 	String Nume;
 
 	@Column(name = "NrLocuri")
-	int NrLocuri;
+	Integer NrLocuri;
 
 	@Column(name = "Proiector", nullable = false)
 	boolean Proiector;
