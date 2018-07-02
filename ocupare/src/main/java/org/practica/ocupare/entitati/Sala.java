@@ -5,27 +5,31 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "Sala")
+@Table(name = "Sala")
 public class Sala {
 	public static enum TipSala {
-		Amfiteatru, Laborator, Seminar, Birou, Conferinte
+		AMFITEATRU, LABORATOR, SEMINAR, BIROU, CONFERINTE
 
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	//@Column(name = "Id")
 	int Id;
 
 	@Column(name = "Nume", nullable = false)
@@ -43,7 +47,8 @@ public class Sala {
 
 	@ManyToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JsonIgnoreProperties("sali")
+	//@JsonIgnoreProperties("{sali, planuri}")
+	@JsonIgnore
 	private Collection<Plan> planuri = new ArrayList<>();
 
 	public Sala(String nume, int nrLocuri, boolean proiector, TipSala tip) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.ManyToMany;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -27,9 +29,10 @@ public class Tag {
 	@Column(name = "descriere", nullable = false)
 	public String descriere;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JsonIgnoreProperties("taguri")
+	//@JsonIgnoreProperties("{taguri, sali}")
+	@JsonIgnore
 	private Collection<Plan> planuri = new ArrayList<>();
 	
 	public Tag() {}

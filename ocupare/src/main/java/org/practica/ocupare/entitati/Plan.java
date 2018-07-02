@@ -9,6 +9,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -77,12 +78,14 @@ public class Plan {
 
 	@ManyToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JsonIgnoreProperties("planuri")
+	//@JsonIgnoreProperties("planuri")
+	@JsonIgnore
 	public Collection<Sala> sali;
 
 	@ManyToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JsonIgnoreProperties("planuri")
+	//@JsonIgnoreProperties("planuri")
+	@JsonIgnore
 	public Collection<Tag> taguri;
 
 	@ManyToOne

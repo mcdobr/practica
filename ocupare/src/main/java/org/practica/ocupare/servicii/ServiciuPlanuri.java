@@ -33,10 +33,7 @@ public class ServiciuPlanuri {
     	session.beginTransaction();
     	
     	Plan pe3 = new Plan("Curs SD",new Periodicitate(),LocalDate.now(),LocalDate.now(),"Anul III","Liste circulare");
-    	
-    	
-    	Sala s1 = new Sala("AC01", 150, true, TipSala.Amfiteatru);
-    	
+    	Sala s1 = new Sala("AC01", 150, true, TipSala.AMFITEATRU);
     	Tag t1 = new Tag("CTI", "2 ore");
     
     	pe3.adaugaSala(s1);
