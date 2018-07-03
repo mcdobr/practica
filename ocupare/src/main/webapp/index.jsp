@@ -25,6 +25,27 @@
 	margin-left: 0px;
 	margin-right: 0px;
 }
+select {
+	display: block;
+	width: 100%;
+	height: 34px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	padding-left: 11px;
+	padding-right: 11px;
+}
+
+
 </style>
 </head>
 
@@ -75,46 +96,88 @@
 				<form method="post" action="">
 					<div class="align1 alignLeft12">
 							<fieldset>
-								<label class="align1" for="SEmail">Sala</label>
+								<label class="align1" for="SSala">Sală</label>
 								<div>
-									<input type="text" placeholder="" class="form-control"
+									<input type="text" placeholder="Introdu numele sălii" class="form-control"
 										name="SSala" id="SSala" required>
 								</div>
 	
-								<label class="align1" for="SPassword">Perioada</label>
+								<label class="align1" for="SOraI">Oră începere</label>
 								<div>
-									<input type="text" placeholder="" class="form-control"
-										name="SPerioada" id="SPerioada" required>
+									<input type="time" placeholder="Introdu ora de început" class="form-control"
+										name="SOraI" id="SOraI" required>
+								</div>
+								
+								<label class="align1" for="SOraS">Oră terminare</label>
+								<div>
+									<input type="time" placeholder="Introdu ora de terminare" class="form-control"
+										name="SOraS" id="SOraS" required>
 								</div>
 	
-								<label class="align1" for="SUsername">Tip eveniment</label>
+								<label class="align1" for="STipEveniment">Tip eveniment</label>
 								<div>
-									<input type="text" placeholder="" class="form-control"
-										name="STipEveniment" id="STipEveniment" required>
+									<select>
+										<option value=""></option>
+									</select>
 								</div>
+								
+								<label class="align1" for="SNumarLocuri">Număr locuri</label>
+								<div>
+									<input type="text" placeholder="Introdu numărul de locuri" class="form-control"
+										name="SNumarLocuri" id="SNumarLocuri" required>
+								</div>
+								
+								<label class="align1" for="SProiector">Proiector</label>
+								<div>
+									<select>
+										<option value="Da">Da</option>
+										<option value="Nu">Nu</option>
+									</select>
+								</div>
+								
 								<br>
 							</fieldset>
 					</div>
 
 					<div class="align1 alignRight12">
 						<fieldset>
-							<label class="align1" for="SEmail">Numar participanti</label>
+							<label class="align1" for="SParticipanti">Număr de participanți</label>
 							<div>
-								<input type="text" placeholder="" class="form-control" name=""
-									id="" required>
+								<input type="text" placeholder="Introdu numărul de participanți" class="form-control" name="SParticipanti"
+									id="SParticipanti" required>
 							</div>
 	
-							<label class="align1" for="SPassword">Altceva</label>
+							<label class="align1" for="STag">Tag</label>
 							<div>
-								<input type="password" placeholder="" class="form-control"
-									name="" id="" required>
+								<input type="text" placeholder="Introdu numele tag-ului" class="form-control"
+									name="STag" id="STag" required>
 							</div>
 	
-							<label class="align1" for="ID">Altceva</label>
+							<label class="align1" for="SDescriereTag">Descriere tag</label>
 							<div>
-								<input type="text" placeholder="" class="form-control" name=""
-									id="">
+								<input type="text" placeholder="Introdu descrierea tag-ului" class="form-control" name="SDescriereTag"
+									id="SDescriereTag">
 							</div>
+							
+							<label class="align1" for="SDataInceput">Data de început</label>
+							<div>
+								<input type="date" placeholder="Introdu data de început" class="form-control" name="SDataInceput"
+									id="SDataInceput">
+							</div>
+							
+							<label class="align1" for="SDataSfarsit">Data de sfârşit</label>
+							<div>
+								<input type="date" placeholder="Introdu data de sfârşit" class="form-control" name="SDataSfarsit"
+									id="SDataSfarsit">
+							</div>
+							
+							<label class="align1" for="SOraS">Perioadă</label>
+							<div>
+								<select>
+									<option value=""></option>
+								</select>
+							</div>
+							
 							<br>
 						</fieldset>
 					</div>
