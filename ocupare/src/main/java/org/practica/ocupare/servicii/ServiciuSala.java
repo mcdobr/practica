@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.hibernate.Session;
 import org.practica.ocupare.entitati.Sala;
+import org.practica.ocupare.entitati.Sala.TipSala;
 import org.practica.ocupare.utile.HibernateUtil;
 
 @Path("sali")
@@ -28,12 +29,13 @@ public class ServiciuSala {
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
     	session.beginTransaction();
+    	Sala s = new Sala("wqew", 655, true, TipSala.AMFITEATRU);
     	
     	Sala sala = session.get(Sala.class, id);
     	session.getTransaction().commit();
     	session.close();
     	
-    	return sala;
+    	return s;
 	}
 	
 	@SuppressWarnings("unchecked")
