@@ -9,21 +9,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Tag {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", unique=true)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
 
-	@Column(name = "nume", nullable = false, length = 20)
+	@Column(name = "nume", nullable = false, length = 20, unique=true)
 	public String nume;
 
 	@Column(name = "descriere", nullable = false)

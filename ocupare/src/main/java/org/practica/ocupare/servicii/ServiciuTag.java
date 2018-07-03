@@ -1,6 +1,5 @@
 package org.practica.ocupare.servicii;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.hibernate.Session;
 import org.practica.ocupare.entitati.Tag;
@@ -78,17 +78,7 @@ public class ServiciuTag {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
     	
-		List<Tag> tags = new ArrayList<Tag>();
-    	for(Tag tt: tags)
-    	{
-    		if(tt.getId()==t.getId())
-    		{
-    	
-    			
-    		}
-    	}
-		
-    	session.save(t);
+		session.save(t);
 
     	session.getTransaction().commit();
 		session.close();
