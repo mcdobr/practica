@@ -25,7 +25,7 @@ public class Sala {
 	public static enum TipSala {
 		AMFITEATRU, LABORATOR, SEMINAR, BIROU, CONFERINTE
 
-	}
+	} 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
