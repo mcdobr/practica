@@ -94,7 +94,8 @@ public class Plan {
 
 	@OneToMany
 	@JoinTable(name = "Plan_Eveniment", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "plan"))
-	@JsonIgnoreProperties("plan")
+	//@JsonIgnoreProperties("plan")
+	@JsonIgnore
 	Collection<Eveniment> evenimente;
 
 	public Plan() {
@@ -213,5 +214,19 @@ public class Plan {
 	public void adaugaTag(Tag t) {
 		this.taguri.add(t);
 		t.getPlanuri().add(this);
+	}
+	
+	public void inlaturaSala(Sala s) {
+		if (this.sali.contains(s)) {
+			this.sali.remove(s);
+			s.getPlanuri().remove(this);
+		}
+	}
+	
+	public void inlaturaTag(Tag t) {
+		if (this.taguri.contains(t)) {
+			this.taguri.remove(t);
+			t.getPlanuri().remove(this);
+		}
 	}
 }
