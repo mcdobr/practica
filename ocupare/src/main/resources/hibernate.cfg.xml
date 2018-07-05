@@ -19,11 +19,11 @@
       <property name = "hibernate.hbm2ddl.auto">update</property>
       <!-- List of XML mapping files -->
       <mapping class = "org.practica.ocupare.entitati.Sala"/>
-      <mapping class = "org.practica.ocupare.entitati.BlackList"/>
       <mapping class = "org.practica.ocupare.entitati.Plan"/>
       <mapping class = "org.practica.ocupare.entitati.Eveniment"/>
       <mapping class = "org.practica.ocupare.entitati.User"/>
       <mapping class = "org.practica.ocupare.entitati.Tag"/>
+      <mapping class = "org.practica.ocupare.entitati.ZiLibera"/>
       
    </session-factory>
 </hibernate-configuration>

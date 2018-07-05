@@ -9,12 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "taguri")
 public class Tag {
 
 	@Id
@@ -30,11 +33,12 @@ public class Tag {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	//@JsonIgnoreProperties("{taguri, sali}")
+	// @JsonIgnoreProperties("{taguri, sali}")
 	@JsonIgnore
 	private Collection<Plan> planuri = new ArrayList<>();
-	
-	public Tag() {}
+
+	public Tag() {
+	}
 
 	public Tag(String nume, String descriere) {
 		super();

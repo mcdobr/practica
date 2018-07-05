@@ -1,6 +1,5 @@
 package org.practica.ocupare.servicii;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class ServiciuTag {
 		session.beginTransaction();
     	
 		List<Tag> tags = new ArrayList<Tag>();
-		tags = session.createQuery("from Tag").list();
+		tags = session.createQuery("from taguri").list();
 
     	session.getTransaction().commit();
 		session.close();
@@ -77,16 +76,6 @@ public class ServiciuTag {
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-    	
-		List<Tag> tags = new ArrayList<Tag>();
-    	for(Tag tt: tags)
-    	{
-    		if(tt.getId()==t.getId())
-    		{
-    	
-    			
-    		}
-    	}
 		
     	session.save(t);
 

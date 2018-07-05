@@ -27,8 +27,8 @@ public class ServiciuPlanuri {
     	Session session = HibernateUtil.getSessionFactory().openSession();
     	session.beginTransaction();
     	
-    	Plan p = new Plan("sadfasdf", new Periodicitate(), LocalDate.now(), LocalDate.now(), "ewrqeq", "weqrwqer");
-    	session.save(p);
+    	//Plan p = new Plan("sadfasdf", new Periodicitate(), LocalDate.now(), LocalDate.now(), "ewrqeq", "weqrwqer");
+    	//session.save(p);
     	
     	Plan plan = session.get(Plan.class, planID);
     	session.getTransaction().commit();

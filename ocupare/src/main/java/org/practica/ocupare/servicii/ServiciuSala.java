@@ -29,13 +29,13 @@ public class ServiciuSala {
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
     	session.beginTransaction();
-    	Sala s = new Sala("wqew", 655, true, TipSala.AMFITEATRU);
+    	//Sala s = new Sala("wqew", 655, true, TipSala.AMFITEATRU);
     	
     	Sala sala = session.get(Sala.class, id);
     	session.getTransaction().commit();
     	session.close();
     	
-    	return s;
+    	return sala;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -47,7 +47,7 @@ public class ServiciuSala {
     	session.beginTransaction();
 
     	List<Sala> sali = new ArrayList<Sala>();
-		sali = session.createQuery("from Sala").list();
+		sali = session.createQuery("from sali").list();
 		
 		session.getTransaction().commit();
 		session.close();

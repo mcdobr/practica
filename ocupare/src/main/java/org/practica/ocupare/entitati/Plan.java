@@ -10,10 +10,9 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "PlanEveniment")
+@Table(name = "planuri")
 public class Plan {
 	@Embeddable
 	public static class Periodicitate {
