@@ -16,9 +16,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
+@Entity(name = "users")
 @Table(name = "users")
 public class User {
 	@Id
@@ -43,7 +45,7 @@ public class User {
 	@JoinTable(name = "User_Plan", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "detinatorId"))
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JsonIgnoreProperties("user")
-	Collection<Plan> planuri = new ArrayList<Plan>();
+	Collection<Plan> planuri = new ArrayList<>();
 
 	public String getEmail() {
 		return email;
@@ -57,6 +59,7 @@ public class User {
 		return nume;
 	}
 
+	//@JsonIgnore
 	public String getParola() {
 		return parola;
 	}
@@ -81,6 +84,7 @@ public class User {
 		this.nume = nume;
 	}
 
+	//@JsonProperty
 	public void setParola(String parola) {
 		this.parola = parola;
 	}

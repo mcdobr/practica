@@ -1,12 +1,7 @@
 package org.practica.ocupare.servicii;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,55 +11,42 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.hibernate.Session;
-import org.practica.ocupare.entitati.ZiLibera;
+import org.practica.ocupare.entitati.User;
 import org.practica.ocupare.utile.HibernateUtil;
 
-@Path("zilelibere")
-public class ServiciuZileLibere {
-
+@Path("useri")
+public class ServiciuUser {
 	@GET
+	@Path("{userID}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public List<ZiLibera> getDate() {
+	public User getUser(@PathParam("userID") int userID) {
+
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		List<ZiLibera> zileLibere = session.createQuery("from zilelibere").list();
+		User user = session.get(User.class, userID);
 
 		session.getTransaction().commit();
 		session.close();
 
-		return zileLibere;
+		return user;
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
-	public Response adaugaData(LocalDate data) {
+	// TODO: Schimbat ca doar adminii sa poata face asta
+	@PermitAll
+	public Response createUser(User u) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		session.save(data);
+		session.save(u);
 
 		session.getTransaction().commit();
 		session.close();
 
-		return Response.ok().build();
-	}
-
-	@DELETE
-	@Path("{ziLiberaID}")
-	@RolesAllowed("admin")
-	public Response deleteData(@PathParam("ziLiberaID") int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-
-		LocalDate data = session.get(LocalDate.class, id);
-		if (data != null)
-			session.delete(data);
-
-		session.getTransaction().commit();
-		session.close();
+		// TODO: modifica
 		return Response.ok().build();
 	}
 
