@@ -33,6 +33,8 @@ public class ServiciuPlanuri {
     	Plan plan = session.get(Plan.class, planID);
     	session.getTransaction().commit();
     	session.close();
+    	
+    	//return p;
     	return plan;
     }
     
