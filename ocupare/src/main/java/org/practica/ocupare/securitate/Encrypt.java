@@ -1,4 +1,4 @@
-package org.practica.ocupare.functii;
+package org.practica.ocupare.securitate;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

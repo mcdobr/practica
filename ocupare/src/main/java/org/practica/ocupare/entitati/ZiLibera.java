@@ -7,32 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "BlackList")
-public class BlackList {
+@Entity(name = "zilelibere")
+@Table(name = "zilelibere")
+public class ZiLibera {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
-	int Id;
+	@Column(name = "id")
+	int id;
 
-	@Column(name = "Zi")
-	LocalDate Zi;
+	@Column(name = "zi")
+	LocalDate zi;
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public LocalDate getZi() {
-		return Zi;
+		return zi;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public void setZi(LocalDate zi) {
-		Zi = zi;
+		this.zi = zi;
 	}
 
 }
