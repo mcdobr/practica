@@ -29,13 +29,11 @@ public class ServiciuSala {
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
     	session.beginTransaction();
-    	Sala s = new Sala("wqew", 655, true, TipSala.AMFITEATRU);
-    	
     	Sala sala = session.get(Sala.class, id);
     	session.getTransaction().commit();
     	session.close();
     	
-    	return s;
+    	return sala;
 	}
 	
 	@SuppressWarnings("unchecked")
