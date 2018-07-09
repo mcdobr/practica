@@ -19,7 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+@Entity(name = "sali")
 @Table(name = "sali")
 public class Sala {
 	public static enum TipSala {
