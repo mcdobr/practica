@@ -5,6 +5,8 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +25,7 @@ public class Sala {
 	public static enum TipSala {
 		AMFITEATRU, LABORATOR, SEMINAR, BIROU, CONFERINTE
 
-	}
+	} 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +41,7 @@ public class Sala {
 	@Column(name = "Proiector", nullable = false)
 	boolean Proiector;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "Tip", nullable = false)
 	@NotNull
 	TipSala Tip;

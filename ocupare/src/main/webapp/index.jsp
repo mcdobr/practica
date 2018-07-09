@@ -1,12 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ page import="org.practica.ocupare.entitati.*" %>
+<%@ page import="org.practica.ocupare.entitati.Sala.TipSala" %>
+<%@ page import="org.practica.ocupare.entitati.Plan.Periodicitate.TipPeriodicitate" %>
+<%@ page import="org.glassfish.jersey.client.*" %>
+<%@ page import="javax.ws.rs.client.*" %>
+<%@ page import="javax.ws.rs.core.*" %>
+<%@ page import="java.net.URI" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.io.*" %>
+
+<%@ page import="org.glassfish.jersey.client.HttpUrlConnectorProvider" %>
+<%@ page import="com.fasterxml.jackson.core.JsonParseException" %>
+<%@ page import="com.fasterxml.jackson.databind.*" %>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
+<script src="script.js"></script>
 <title>AC</title>
 <link href="css/style.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="js/script.js"></script>
 <link
 	href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -25,6 +43,13 @@
 	margin-left: 0px;
 	margin-right: 0px;
 }
+
+label {
+    
+    margin-bottom: 1px;
+}
+
+
 select {
 	display: block;
 	width: 100%;
@@ -45,6 +70,9 @@ select {
 	padding-right: 11px;
 }
 
+.form-control {
+	height: 35px;
+}
 
 </style>
 </head>
@@ -98,8 +126,53 @@ select {
 							<fieldset>
 								<label class="align1" for="SSala">Sală</label>
 								<div>
-									<input type="text" placeholder="Introdu numele sălii" class="form-control"
-										name="SSala" id="SSala" required>
+									<select id='SSala'>
+									<%!
+									
+									private static URI getBaseURI() {
+										//TODO change the port to whatever is the server running on
+										return UriBuilder.fromUri("http://localhost:8080/ocupare/").build();
+									} %>
+									
+									<%
+									
+									ClientConfig config2 = new ClientConfig();
+									Client client = ClientBuilder.newClient(config2);
+									client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
+									WebTarget service = client.target(getBaseURI());
+									
+									Response response2;
+									response2 = service.path("webapi").path("sali").request().accept(MediaType.APPLICATION_JSON).get(Response.class);
+									String data = response2.readEntity(String.class);
+									int status = response.getStatus();
+									ObjectMapper objectmapper = new ObjectMapper();
+									List<Sala> sali = new ArrayList<>();
+									try {
+										sali = objectmapper.readValue(
+											    data,
+											    objectmapper.getTypeFactory().constructCollectionType(List.class, Sala.class)
+											);
+									} catch (JsonParseException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (JsonMappingException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									
+									System.out.println(data);
+									if (status==200){
+									}else {
+										
+									}
+									for(int i=0;i<sali.size();++i) {%>
+									<option value="<%= sali.get(i).getNume() %>"><%= sali.get(i).getNume() %></option>
+									<% }
+									%>
+									</select>
 								</div>
 	
 								<label class="align1" for="SOraI">Oră începere</label>
@@ -114,10 +187,13 @@ select {
 										name="SOraS" id="SOraS" required>
 								</div>
 	
-								<label class="align1" for="STipEveniment">Tip eveniment</label>
+								<label class="align1" for="STipSala">Tip sală</label>
 								<div>
-									<select>
-										<option value=""></option>
+									<% String[] lista = Arrays.toString(TipSala.values()).replaceAll("^.|.$","").split(",");%>
+									<select id="STipSala">
+										<% for(int i=0;i<lista.length;++i) {%>
+										<option value="<%= lista[i]%>"><%= lista[i] %></option>
+										<% } %>
 									</select>
 								</div>
 								
@@ -129,10 +205,22 @@ select {
 								
 								<label class="align1" for="SProiector">Proiector</label>
 								<div>
-									<select>
+									<select id='SProiector'>
 										<option value="Da">Da</option>
 										<option value="Nu">Nu</option>
 									</select>
+								</div>
+								
+								<label class="align1" for="SParticipanti">Participanți</label>
+								<div>
+									<input type="text" placeholder="Introdu numele grupului de participanți" class="form-control" name="SParticipanti"
+										id="SParticipanti" required>
+								</div>
+								
+								<label class="align1" for="SNumePlan">Nume plan</label>
+								<div>
+									<input type="text" placeholder="Introdu numele planului" class="form-control" name="SNumePlan"
+										id="SNumePlan" required>
 								</div>
 								
 								<br>
@@ -141,12 +229,6 @@ select {
 
 					<div class="align1 alignRight12">
 						<fieldset>
-							<label class="align1" for="SParticipanti">Număr de participanți</label>
-							<div>
-								<input type="text" placeholder="Introdu numărul de participanți" class="form-control" name="SParticipanti"
-									id="SParticipanti" required>
-							</div>
-	
 							<label class="align1" for="STag">Tag</label>
 							<div>
 								<input type="text" placeholder="Introdu numele tag-ului" class="form-control"
@@ -171,19 +253,42 @@ select {
 									id="SDataSfarsit">
 							</div>
 							
-							<label class="align1" for="SOraS">Perioadă</label>
+							<label class="align1" for="LMMJVSD">Zilele saptamanii</label>
+						    <br/>
+							<div class="form-control">
+								 <input type="checkbox" name="L" value="L"> L &nbsp;
+								 <input type="checkbox" name="M" value="M"> M &nbsp;
+								 <input type="checkbox" name="Mi" value="Mi"> Mi &nbsp;
+								 <input type="checkbox" name="J" value="J"> J &nbsp;
+								 <input type="checkbox" name="V" value="V"> V &nbsp;
+								 <input type="checkbox" name="S" value="S"> S &nbsp;
+								 <input type="checkbox" name="D" value="D"> D &nbsp;
+							</div> 
+							
+							<label for="Perioada">Perioadă</label>
 							<div>
-								<select>
-									<option value=""></option>
+								<% String[] lista2 = Arrays.toString(TipPeriodicitate.values()).replaceAll("^.|.$","").split(",");%>
+								<select id="Perioada">
+										<% for(int i=0;i<lista2.length;++i) {%>
+										<option value="<%= lista2[i]%>"><%= lista2[i] %></option>
+										<% } %>
 								</select>
+							</div>
+							
+							<label class="align1" for="SDescrierePlan">Descriere plan</label>
+							<div>
+								<input type="text" placeholder="Introdu o descriere a evenimentului" class="form-control" name="SDescrierePlan"
+									id="SDescrierePlan" required>
 							</div>
 							
 							<br>
 						</fieldset>
 					</div>
+					
+					
 	
 					<div class="buttonAlign">
-						<button type="submit" class="btn btn-success"
+						<button type="submit" class="btn btn-success" onclick="send()"
 							style="background-color: rgb(194, 24, 91); border: none;">Rezervă</button>
 						<button type="reset" class="btn btn-primary"
 							style="background-color: rgb(194, 24, 91); border: none">Clear</button>
