@@ -10,10 +10,9 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "PlanEveniment")
+@Table(name = "planuri")
 public class Plan {
 	@Embeddable
 	public static class Periodicitate {
@@ -21,10 +20,10 @@ public class Plan {
 			UNIC, SAPTAMANAL, BISAPTAMANAL, LUNAR, ANUAL, CUSTOM
 		}
 
-		public TipPeriodicitate tipPeriodicitate;
+		private TipPeriodicitate tipPeriodicitate;
 
 		@ElementCollection(fetch = FetchType.EAGER)
-		public Collection<String> zileProgramate;
+		private Collection<String> zileProgramate;
 
 		public Periodicitate() {
 			super();
@@ -99,9 +98,9 @@ public class Plan {
 	Collection<Eveniment> evenimente;
 
 	public Plan() {
-		this.sali = new ArrayList<Sala>();
-		this.taguri = new ArrayList<Tag>();
-		this.evenimente = new ArrayList<Eveniment>();
+		this.sali = new ArrayList<>();
+		this.taguri = new ArrayList<>();
+		this.evenimente = new ArrayList<>();
 	}
 
 	public Plan(String nume, Periodicitate periodicitate, LocalDate inceput, LocalDate sfarsit, String participanti,
@@ -113,9 +112,9 @@ public class Plan {
 		this.sfarsit = sfarsit;
 		this.participanti = participanti;
 		this.descriere = descriere;
-		this.sali = new ArrayList<Sala>();
-		this.taguri = new ArrayList<Tag>();
-		this.evenimente = new ArrayList<Eveniment>();
+		this.sali = new ArrayList<>();
+		this.taguri = new ArrayList<>();
+		this.evenimente = new ArrayList<>();
 	}
 
 	public Collection<Eveniment> getEvenimente() {

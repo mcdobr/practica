@@ -19,8 +19,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "Sala")
-@Table(name = "Sala")
+@Entity(name = "sali")
+@Table(name = "sali")
 public class Sala {
 	public static enum TipSala {
 		AMFITEATRU, LABORATOR, SEMINAR, BIROU, CONFERINTE
@@ -30,21 +30,21 @@ public class Sala {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//@Column(name = "Id")
-	int Id;
+	int id;
 
-	@Column(name = "Nume", nullable = false, unique = true)
-	String Nume;
+	@Column(name = "nume", nullable = false, unique = true)
+	String nume;
 
-	@Column(name = "NrLocuri")
-	Integer NrLocuri;
+	@Column(name = "nrLocuri")
+	Integer nrLocuri;
 
-	@Column(name = "Proiector", nullable = false)
-	boolean Proiector;
+	@Column(name = "proiector", nullable = false)
+	boolean proiector;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "Tip", nullable = false)
+	@Column(name = "tip", nullable = false)
 	@NotNull
-	TipSala Tip;
+	TipSala tip;
 
 	@ManyToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -54,10 +54,10 @@ public class Sala {
 
 	public Sala(String nume, int nrLocuri, boolean proiector, TipSala tip) {
 		super();
-		Nume = nume;
-		NrLocuri = nrLocuri;
-		Proiector = proiector;
-		Tip = tip;
+		this.nume = nume;
+		this.nrLocuri = nrLocuri;
+		this.proiector = proiector;
+		this.tip = tip;
 		this.planuri = new ArrayList<>();
 	}
 
@@ -65,43 +65,43 @@ public class Sala {
 	}
 
 	public TipSala getTip() {
-		return Tip;
+		return tip;
 	}
 
 	public void setTip(TipSala tip) {
-		this.Tip = tip;
+		this.tip = tip;
 	}
 
 	public int getID() {
-		return Id;
+		return id;
 	}
 
-	public void setID(int iD) {
-		Id = iD;
+	public void setID(int id) {
+		this.id = id;
 	}
 
 	public String getNume() {
-		return Nume;
+		return nume;
 	}
 
 	public void setNume(String nume) {
-		this.Nume = nume;
+		this.nume = nume;
 	}
 
 	public int getNrLocuri() {
-		return NrLocuri;
+		return nrLocuri;
 	}
 
 	public void setNrLocuri(int nrLocuri) {
-		NrLocuri = nrLocuri;
+		this.nrLocuri = nrLocuri;
 	}
 
 	public boolean isProiector() {
-		return Proiector;
+		return proiector;
 	}
 
 	public void setProiector(boolean proiector) {
-		this.Proiector = proiector;
+		this.proiector = proiector;
 	}
 
 	public Collection<Plan> getPlanuri() {

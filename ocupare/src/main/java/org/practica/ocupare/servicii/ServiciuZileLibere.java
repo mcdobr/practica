@@ -1,5 +1,6 @@
 package org.practica.ocupare.servicii;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
@@ -15,53 +16,35 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.hibernate.Session;
-import org.practica.ocupare.entitati.Sala;
+import org.practica.ocupare.entitati.ZiLibera;
 import org.practica.ocupare.utile.HibernateUtil;
 
-@Path("sali")
-public class ServiciuSala {
+@Path("zilelibere")
+public class ServiciuZileLibere {
 
-	@GET
-	@Path("{salaID}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@PermitAll
-	public Sala getTag(@PathParam("salaID") int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		// Sala s = new Sala("wqew", 655, true, TipSala.AMFITEATRU);
-
-		Sala sala = session.get(Sala.class, id);
-		session.getTransaction().commit();
-		session.close();
-
-		return sala;
-	}
-
-	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public List<Sala> getSali() {
+	public List<ZiLibera> getDate() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		List<Sala> sali = session.createQuery("from sali").list();
+		List<ZiLibera> zileLibere = session.createQuery("from zilelibere").list();
 
 		session.getTransaction().commit();
 		session.close();
-		return sali;
 
+		return zileLibere;
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public Response createSala(Sala s) {
+	public Response adaugaData(LocalDate data) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		// logica de creare
-		session.save(s);
+		session.save(data);
 
 		session.getTransaction().commit();
 		session.close();
@@ -70,20 +53,19 @@ public class ServiciuSala {
 	}
 
 	@DELETE
-	@Path("{salaID}")
+	@Path("{ziLiberaID}")
 	@RolesAllowed("admin")
-	public Response deleteSala(@PathParam("salaID") int id) {
+	public Response deleteData(@PathParam("ziLiberaID") int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		Sala s = session.get(Sala.class, id);
-
-		if (s != null)
-			session.delete(s);
+		LocalDate data = session.get(LocalDate.class, id);
+		if (data != null)
+			session.delete(data);
 
 		session.getTransaction().commit();
 		session.close();
-
 		return Response.ok().build();
 	}
+
 }

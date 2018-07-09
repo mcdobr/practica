@@ -8,10 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
+@Table(name = "evenimente")
 public class Eveniment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +23,25 @@ public class Eveniment {
 
 	@ManyToOne
 	@JoinColumn(name = "plan")
-	@JsonIgnoreProperties("plan")
+	// @JsonIgnoreProperties("plan")
+	// @JsonProperty(value = "defaultaddressid")
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true)
 	private Plan plan;
 
 	private LocalDateTime inceput;
 	private LocalDateTime sfarsit;
+
+	public Eveniment() {
+		super();
+	}
+
+	public Eveniment(Plan plan, LocalDateTime inceput, LocalDateTime sfarsit) {
+		super();
+		this.plan = plan;
+		this.inceput = inceput;
+		this.sfarsit = sfarsit;
+	}
 
 	public Integer getId() {
 		return id;
