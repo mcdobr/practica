@@ -19,6 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity(name = "users")
 @Table(name = "users")
@@ -36,6 +37,7 @@ public class User {
 
 	// SETARE CONSTRANGERI GEN: O LITERA MARE, O CIFRA, ETC;
 	@Column(name = "parola", nullable = false)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public String parola;
 
 	@Column(name = "rol", nullable = false)
@@ -58,8 +60,7 @@ public class User {
 	public String getNume() {
 		return nume;
 	}
-
-	@JsonIgnore
+	
 	public String getParola() {
 		return parola;
 	}
@@ -83,8 +84,7 @@ public class User {
 	public void setNume(String nume) {
 		this.nume = nume;
 	}
-
-	@JsonProperty
+	
 	public void setParola(String parola) {
 		this.parola = parola;
 	}

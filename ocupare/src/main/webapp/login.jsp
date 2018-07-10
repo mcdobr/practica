@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<script src="js/script.js"></script>
 <title>AC</title>
 
 <link href="css/style.css" rel="stylesheet">
@@ -66,13 +67,15 @@
 						<div class="tab-content">
 							<div id="sectionA" class="tab-pane fade in active">
 								<div class="innter-form">
-									<form class="formular" method="post" action="login">
-										<label>Email</label> <input type="text"
-											placeholder="Introdu adresa de email" name="username" id="">
+									<fieldset class="formular">
+										<label>Nume</label> <input type="text"
+											placeholder="Introdu adresa de email" name="username" id="LUsername">
 										<label>Parolă</label> <input type="password"
-											placeholder="Introdu parola" name="password" id="">
-										<button type="submit">Conectare</button>
-									</form>
+											placeholder="Introdu parola" name="password" id="LPassword">
+										<button type="submit" onclick="logare()">Conectare</button>
+									</fieldset>
+									<br><br>
+									<span color="red" id="logMsg"></span>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -90,6 +93,7 @@
 											placeholder="Introdu numărul de telefon" name="" id="">
 										<button type="submit">Creare cont</button>
 									</form>
+
 								</div>
 							</div>
 						</div>

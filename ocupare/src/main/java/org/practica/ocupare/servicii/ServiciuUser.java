@@ -7,6 +7,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -33,7 +34,24 @@ public class ServiciuUser {
 
 		return user;
 	}
+	
+	@GET
+	@Path("query")
+	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public User getUserByName(@QueryParam("nume") String nume) {
 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		User user = (User)session.createQuery("select u from users u where u.nume = :nume")
+        	.setParameter("nume", nume).uniqueResult();
+		
+		session.getTransaction().commit();
+		session.close();
+
+		return user;
+	}
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	// TODO: Schimbat ca doar adminii sa poata face asta
@@ -69,7 +87,7 @@ public class ServiciuUser {
 		if (isAuthenticated)
 			return Response.ok().build();
 		else
-			return Response.status(Status.FORBIDDEN).build();
+			return Response.status(Status.SEE_OTHER).build();
 	}
 
 }
