@@ -9,6 +9,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.hibernate.Session;
 import org.practica.ocupare.entitati.User;
@@ -48,6 +49,27 @@ public class ServiciuUser {
 
 		// TODO: modifica
 		return Response.ok().build();
+	}
+	
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("{userID}")
+	@PermitAll
+	public Response logUser(@PathParam("userID") int userID, User u) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+
+		User persistUser = session.get(User.class, userID);
+		boolean isAuthenticated = (persistUser != null && persistUser.getNume().equals(u.getNume()) && persistUser.getParola().equals(u.getParola()));
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		if (isAuthenticated)
+			return Response.ok().build();
+		else
+			return Response.status(Status.FORBIDDEN).build();
 	}
 
 }

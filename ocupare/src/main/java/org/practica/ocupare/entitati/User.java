@@ -59,7 +59,7 @@ public class User {
 		return nume;
 	}
 
-	//@JsonIgnore
+	@JsonIgnore
 	public String getParola() {
 		return parola;
 	}
@@ -84,7 +84,7 @@ public class User {
 		this.nume = nume;
 	}
 
-	//@JsonProperty
+	@JsonProperty
 	public void setParola(String parola) {
 		this.parola = parola;
 	}
