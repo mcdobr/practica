@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.hibernate.Session;
 import org.practica.ocupare.entitati.User;
+import org.practica.ocupare.securitate.Encrypt;
 import org.practica.ocupare.utile.HibernateUtil;
 
 @Path("useri")
@@ -60,6 +61,7 @@ public class ServiciuUser {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
+		u.setParola(Encrypt.generateHash(u.getParola()));
 		session.save(u);
 
 		session.getTransaction().commit();

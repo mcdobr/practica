@@ -27,21 +27,21 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	public int id;
+	private int id;
 
-	@Column(name = "nume", length = 50, nullable = false)
-	public String nume;
+	@Column(name = "nume", length = 50, nullable = false, unique = true)
+	private String nume;
 
 	@Column(name = "email", length = 50, nullable = false)
-	public String email;
+	private String email;
 
 	// SETARE CONSTRANGERI GEN: O LITERA MARE, O CIFRA, ETC;
 	@Column(name = "parola", nullable = false)
 	@JsonProperty(access = Access.WRITE_ONLY)
-	public String parola;
+	private String parola;
 
 	@Column(name = "rol", nullable = false)
-	public String rol;
+	private String rol;
 
 	@OneToMany
 	@JoinTable(name = "User_Plan", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "detinatorId"))
