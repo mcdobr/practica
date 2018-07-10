@@ -22,11 +22,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Tag {
 
 	@Id
-	@Column(name = "id", unique=true)
+	@Column(name = "id", unique = true)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
 
-	@Column(name = "nume", nullable = false, length = 20, unique=true)
+	@Column(name = "nume", nullable = false, length = 20, unique = true)
 	public String nume;
 
 	@Column(name = "descriere", nullable = false)
