@@ -80,6 +80,7 @@ public class ServiciuUser {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
+		u.setParola(Encrypt.generateHash(u.getParola()));
 		User persistUser = session.get(User.class, userID);
 		boolean isAuthenticated = (persistUser != null && persistUser.getNume().equals(u.getNume()) && persistUser.getParola().equals(u.getParola()));
 		
