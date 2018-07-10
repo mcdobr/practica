@@ -611,3 +611,52 @@ function calendar()
 			
 	
 }
+
+
+URI='http://localhost:8080/ocupare/webapi/'
+var info=[];
+	
+
+	function sendUserInfo(jsonData){
+		$.ajax({
+			type: 'POST',
+			url: URI + 'useri/' + info[0],
+			dataType: 'json',
+			contentType: 'application/json',
+			data:JSON.stringify(jsonData),
+			statusCode: {
+				200: function(response) {
+					window.location.href = 'index.jsp';
+				},
+				303: function(response) {
+					document.getElementById('logMsg').innerHTML = "Parola sau user gresit.";
+				}
+			}
+			
+		});
+		
+		
+	}
+
+	function getId(jsonData){
+		
+		console.log(jsonData.id);
+		pass =  document.getElementById('LPassword').value;
+		console.log(pass);
+		jsonData.parola = pass;
+		info = [jsonData.id, jsonData.nume, document.getElementById('LPassword').value];
+		console.log(jsonData);
+		sendUserInfo(jsonData);
+		return info;
+	}	
+		
+	function logare(){
+		console.log(document.getElementById('LUsername').value);
+		$.ajax({
+			type: 'GET',
+			url: URI+'useri/query?nume='+document.getElementById('LUsername').value,
+			dataType: 'json',
+			success : getId
+		});
+	}
+
