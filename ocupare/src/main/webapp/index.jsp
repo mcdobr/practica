@@ -20,7 +20,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script src="script.js"></script>
 <title>AC</title>
 <link href="css/style.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -239,13 +238,13 @@ select {
 							<label class="align1" for="LMMJVSD">Zilele saptamanii</label>
 						    <br/>
 							<div class="form-control">
-								 <input type="checkbox" name="L" value="L"> L &nbsp;
-								 <input type="checkbox" name="M" value="M"> M &nbsp;
-								 <input type="checkbox" name="Mi" value="Mi"> Mi &nbsp;
-								 <input type="checkbox" name="J" value="J"> J &nbsp;
-								 <input type="checkbox" name="V" value="V"> V &nbsp;
-								 <input type="checkbox" name="S" value="S"> S &nbsp;
-								 <input type="checkbox" name="D" value="D"> D &nbsp;
+								 <input class="checkBoxZile" type="checkbox" name="L" value="L"> L &nbsp;
+								 <input class="checkBoxZile" type="checkbox" name="M" value="M"> M &nbsp;
+								 <input class="checkBoxZile" type="checkbox" name="Mi" value="Mi"> Mi &nbsp;
+								 <input class="checkBoxZile" type="checkbox" name="J" value="J"> J &nbsp;
+								 <input class="checkBoxZile" type="checkbox" name="V" value="V"> V &nbsp;
+								 <input class="checkBoxZile" type="checkbox" name="S" value="S"> S &nbsp;
+								 <input class="checkBoxZile" type="checkbox" name="D" value="D"> D &nbsp;
 							</div> 
 							
 							<br>
@@ -255,7 +254,7 @@ select {
 					
 	
 					<div class="buttonAlign">
-						<button type="submit" class="btn btn-success" onclick="send()"
+						<button type="submit" class="btn btn-success" onclick="creareEveniment()"
 							style="background-color: rgb(194, 24, 91); border: none;">Rezervă</button>
 						<button type="reset" class="btn btn-primary"
 							style="background-color: rgb(194, 24, 91); border: none">Clear</button>
