@@ -614,7 +614,8 @@ function calendar()
 
 
 URI='http://localhost:8080/ocupare/webapi/'
-var info=[];
+username="";
+parola="";
 	
 	function sendUserInfo(jsonData){
 		$.ajax({
@@ -625,7 +626,8 @@ var info=[];
 			data: JSON.stringify(jsonData),
 			statusCode: {
 				200: function(response) {
-					info = [jsonData.id, jsonData.nume, jsonData.parola];
+					username = jsonData.nume;
+					parola = jsonData.parola; 
 					window.location.href = 'index.jsp';
 				},
 				303: function(response) {
@@ -692,4 +694,47 @@ var info=[];
 		}
 		
 	}
+	
+	function creareEveniment(){
+		
+		jsonData = {};
+		jsonData.nume = document.getElementById('SNumePlan').value;
+		jsonData.descriere = document.getElementById('SDescrierePlan').value;
+		jsonData.sala = document.getElementById('SSala').value;
+		jsonData.participanti =  document.getElementById('SParticipanti').value;
+		jsonData.inceput = document.getElementById('SDataInceput').value;
+		jsonData.oraInceput = document.getElementById('SOraI').value;
+		jsonData.sfarsit = document.getElementById('SDataSfarsit').value;
+		jsonData.oraTerminare = document.getElementById('SOraS').value;
+		jsonData.perioada = document.getElementById('Perioada').value;
+		
+		var zile = []; 
+		var inputElements = document.getElementsByClassName('checkBoxZile');
+		for(var i=0; inputElements[i]; ++i){
+		      if(inputElements[i].checked){
+		    	  zile.push(inputElements[i].value);
+		      }
+		}
+		
+		jsonData.zile = zile;
+		
+		console.log(jsonData);
+		
+		$.ajax({
+			type:'POST',
+			url: URI + 'planuri',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(jsonData),
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Authorization", "Basic " + window.btoa(username + ":" + parola));
+			},
+			statusCode: {
+				200: function(response) {
 
+				}
+			}
+		});
+		
+		
+	}
