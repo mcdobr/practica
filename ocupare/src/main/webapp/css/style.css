@@ -571,6 +571,6 @@ body > p{
 	word-break: break-word;
 }
 
-#logMsg{
+#logMsg, #AuthMsg{
 	color:red;
 }

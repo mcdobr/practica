@@ -616,16 +616,16 @@ function calendar()
 URI='http://localhost:8080/ocupare/webapi/'
 var info=[];
 	
-
 	function sendUserInfo(jsonData){
 		$.ajax({
 			type: 'POST',
-			url: URI + 'useri/' + info[0],
+			url: URI + 'useri/' + jsonData.id,
 			dataType: 'json',
 			contentType: 'application/json',
-			data:JSON.stringify(jsonData),
+			data: JSON.stringify(jsonData),
 			statusCode: {
 				200: function(response) {
+					info = [jsonData.id, jsonData.nume, jsonData.parola];
 					window.location.href = 'index.jsp';
 				},
 				303: function(response) {
@@ -640,11 +640,10 @@ var info=[];
 
 	function getId(jsonData){
 		
-		console.log(jsonData.id);
+		console.log(jsonData);
 		pass =  document.getElementById('LPassword').value;
 		console.log(pass);
 		jsonData.parola = pass;
-		info = [jsonData.id, jsonData.nume, document.getElementById('LPassword').value];
 		console.log(jsonData);
 		sendUserInfo(jsonData);
 		return info;
@@ -656,7 +655,41 @@ var info=[];
 			type: 'GET',
 			url: URI+'useri/query?nume='+document.getElementById('LUsername').value,
 			dataType: 'json',
+			contentType: 'application/json',
 			success : getId
 		});
+	}
+	
+	function autentificare(){
+		
+		
+		nume = document.getElementById('ANume').value;
+		parola = document.getElementById('AParola').value;
+		email = document.getElementById('AEmail').value;
+		
+		if((nume.localeCompare("")==0) || (parola.localeCompare("")==0) || (email.localeCompare("")==0))
+		{
+			document.getElementById('AuthMsg').innerHTML = "Toate campurile sunt obligatorii!"
+		}
+		else
+		{
+		jsonData = {"nume": nume , "email": email , "parola": parola , "rol": "user"};
+		console.log(jsonData);
+		
+		$.ajax({
+			type:'POST',
+			url: URI + 'useri',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(jsonData),
+			statusCode: {
+				200: function(response) {
+					window.location.href = 'login.jsp';
+
+				}
+			}
+		});
+		}
+		
 	}
 
