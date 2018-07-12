@@ -51,6 +51,8 @@
 			Autentificare </a> <a href="logout.jsp" style="text-decoration: none;"><i
 			class="fa fa-sign-out" style="font-size: 20px"></i>&nbsp; Deconectare
 		</a>
+		<a href="sali.jsp" style="text-decoration: none;"><i
+			class="fa fa-calendar-o" style="font-size: 20px"></i>&nbsp; Săli</a>
 		<p>Welcome!</p>
 	</div>
 
