@@ -74,7 +74,7 @@ public class ServiciuPlanuri {
 		final LocalDate inceputPlan = LocalDate.parse(node.get("inceput").asText());
 		final LocalDate sfarsitPlan = LocalDate.parse(node.get("sfarsit").asText());
 		final LocalTime inceputOra	= LocalTime.parse(node.get("oraInceput").asText());
-		final LocalTime sfarsitOra	= LocalTime.parse(node.get("oraTerminare").asText());
+		final LocalTime sfarsitOra	= LocalTime.parse(node.get("oraSfarsit").asText());
 		
 		Periodicitate per = new Periodicitate(TipPeriodicitate.UNIC);
 		Plan plan = new Plan(

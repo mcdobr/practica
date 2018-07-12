@@ -37,6 +37,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
 <style>
 .row {
 	margin-left: 0px;
@@ -254,7 +256,7 @@ select {
 					
 	
 					<div class="buttonAlign">
-						<button type="submit" class="btn btn-success" onclick="creareEveniment()"
+						<button type="button" class="btn btn-success" onclick="creareEveniment()"
 							style="background-color: rgb(194, 24, 91); border: none;">Rezervă</button>
 						<button type="reset" class="btn btn-primary"
 							style="background-color: rgb(194, 24, 91); border: none">Clear</button>
