@@ -11,7 +11,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+@Entity(name = "planuri")
 @Table(name = "planuri")
 public class Plan {
 	@Embeddable
