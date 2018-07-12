@@ -611,3 +611,130 @@ function calendar()
 			
 	
 }
+
+
+URI='http://localhost:8080/ocupare/webapi/'
+username="";
+parola="";
+	
+	function sendUserInfo(jsonData){
+		$.ajax({
+			type: 'POST',
+			url: URI + 'useri/' + jsonData.id,
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(jsonData),
+			statusCode: {
+				200: function(response) {
+					username = jsonData.nume;
+					parola = jsonData.parola; 
+					window.location.href = 'index.jsp';
+				},
+				303: function(response) {
+					document.getElementById('logMsg').innerHTML = "Parola sau user gresit.";
+				}
+			}
+			
+		});
+		
+		
+	}
+
+	function getId(jsonData){
+		
+		console.log(jsonData);
+		pass =  document.getElementById('LPassword').value;
+		console.log(pass);
+		jsonData.parola = pass;
+		console.log(jsonData);
+		sendUserInfo(jsonData);
+		return info;
+	}	
+		
+	function logare(){
+		console.log(document.getElementById('LUsername').value);
+		$.ajax({
+			type: 'GET',
+			url: URI+'useri/query?nume='+document.getElementById('LUsername').value,
+			dataType: 'json',
+			contentType: 'application/json',
+			success : getId
+		});
+	}
+	
+	function autentificare(){
+		
+		
+		nume = document.getElementById('ANume').value;
+		parola = document.getElementById('AParola').value;
+		email = document.getElementById('AEmail').value;
+		
+		if((nume.localeCompare("")==0) || (parola.localeCompare("")==0) || (email.localeCompare("")==0))
+		{
+			document.getElementById('AuthMsg').innerHTML = "Toate campurile sunt obligatorii!"
+		}
+		else
+		{
+		jsonData = {"nume": nume , "email": email , "parola": parola , "rol": "user"};
+		console.log(jsonData);
+		
+		$.ajax({
+			type:'POST',
+			url: URI + 'useri',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(jsonData),
+			statusCode: {
+				200: function(response) {
+					window.location.href = 'login.jsp';
+
+				}
+			}
+		});
+		}
+		
+	}
+	
+	function creareEveniment(){
+		
+		jsonData = {};
+		jsonData.nume = document.getElementById('SNumePlan').value;
+		jsonData.descriere = document.getElementById('SDescrierePlan').value;
+		jsonData.sala = document.getElementById('SSala').value;
+		jsonData.participanti =  document.getElementById('SParticipanti').value;
+		jsonData.inceput = document.getElementById('SDataInceput').value;
+		jsonData.oraInceput = document.getElementById('SOraI').value;
+		jsonData.sfarsit = document.getElementById('SDataSfarsit').value;
+		jsonData.oraTerminare = document.getElementById('SOraS').value;
+		jsonData.perioada = document.getElementById('Perioada').value;
+		
+		var zile = []; 
+		var inputElements = document.getElementsByClassName('checkBoxZile');
+		for(var i=0; inputElements[i]; ++i){
+		      if(inputElements[i].checked){
+		    	  zile.push(inputElements[i].value);
+		      }
+		}
+		
+		jsonData.zile = zile;
+		
+		console.log(jsonData);
+		
+		$.ajax({
+			type:'POST',
+			url: URI + 'planuri',
+			dataType: 'json',
+			contentType: 'application/json',
+			data: JSON.stringify(jsonData),
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Authorization", "Basic " + window.btoa(username + ":" + parola));
+			},
+			statusCode: {
+				200: function(response) {
+
+				}
+			}
+		});
+		
+		
+	}

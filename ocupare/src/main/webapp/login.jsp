@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<script src="js/script.js"></script>
 <title>AC</title>
 
 <link href="css/style.css" rel="stylesheet">
@@ -68,30 +69,31 @@
 						<div class="tab-content">
 							<div id="sectionA" class="tab-pane fade in active">
 								<div class="innter-form">
-									<form class="formular" method="post" action="login">
-										<label>Email</label> <input type="text"
-											placeholder="Introdu adresa de email" name="username" id="">
+									<fieldset class="formular">
+										<label>Nume</label> <input type="text"
+											placeholder="Introdu adresa de email" name="username" id="LUsername">
 										<label>Parolă</label> <input type="password"
-											placeholder="Introdu parola" name="password" id="">
-										<button type="submit">Conectare</button>
-									</form>
+											placeholder="Introdu parola" name="password" id="LPassword">
+										<button type="submit" onclick="logare()">Conectare</button>
+									</fieldset>
+									<br><br>
+									<span color="red" id="logMsg"></span>
 								</div>
 								<div class="clearfix"></div>
 							</div>
 							<div id="sectionB" class="tab-pane fade">
 								<div class="innter-form">
-									<form class="formular" method="post">
-										<label>ID</label> <input type="text"
-											placeholder="*Doar pentru administrator" name="" id="">
+									<form class="formular">
 										<label>Nume</label> <input type="text"
-											placeholder="Introdu numele" name="" id=""> <label>Email</label>
+											placeholder="Introdu numele" name="" id="ANume"> <label>Email</label>
 										<input type="email" placeholder="Introdu adresa de email"
-											name="" id=""> <label>Parolă</label> <input
-											type="text" placeholder="Introdu o parolă" name="" id="">
-										<label>Telefon</label> <input type="tel"
-											placeholder="Introdu numărul de telefon" name="" id="">
-										<button type="submit">Creare cont</button>
+											name="" id="AEmail"> <label>Parolă</label> <input
+											type="password" placeholder="Introdu o parolă" name="" id="AParola">
+										<button type="button" onclick="autentificare()">Creare cont</button>
 									</form>
+									<br><br>
+									<span color="red" id="AuthMsg"></span>
+
 								</div>
 							</div>
 						</div>
