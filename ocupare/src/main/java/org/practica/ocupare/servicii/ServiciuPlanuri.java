@@ -1,6 +1,7 @@
 package org.practica.ocupare.servicii;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -26,6 +27,7 @@ import org.practica.ocupare.entitati.Plan;
 import org.practica.ocupare.entitati.Plan.Periodicitate;
 import org.practica.ocupare.entitati.Plan.Periodicitate.TipPeriodicitate;
 import org.practica.ocupare.entitati.Sala;
+import org.practica.ocupare.entitati.User;
 import org.practica.ocupare.utile.HibernateUtil;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -67,8 +69,6 @@ public class ServiciuPlanuri {
 
 		
 		final ObjectNode node = new ObjectMapper().readValue(json, ObjectNode.class);
-		System.out.println(json);
-		System.out.println(node.get("nume").asText());
 		
 		
 		Sala s = (Sala)session.createQuery("from sali s where s.nume = :nume")
@@ -80,7 +80,8 @@ public class ServiciuPlanuri {
 		final LocalTime inceputOra	= LocalTime.parse(node.get("oraInceput").asText());
 		final LocalTime sfarsitOra	= LocalTime.parse(node.get("oraSfarsit").asText());
 		
-		Periodicitate per = new Periodicitate(TipPeriodicitate.UNIC);
+		//TODO: Modificat periodicitatea din json
+		final Periodicitate per = new Periodicitate(TipPeriodicitate.UNIC);
 		Plan plan = new Plan(
 				node.get("nume").asText(),
 				per, 
@@ -90,11 +91,18 @@ public class ServiciuPlanuri {
 				node.get("descriere").asText()
 				);
 		plan.adaugaSala(s);
+		
+		
+		User user = (User)session.createQuery("from users u where u.nume = :nume")
+							.setParameter("nume", node.get("user").asText())
+							.uniqueResult();
+		
+		plan.setUser(user);
 		session.save(plan);
 		
 		
 		//TODO: Trebuie modificat incrementul. trebuie luate salile si adaugate
-		TemporalAmount increment = null;
+		//Period increment = Period.of
 		
 		
 		for (LocalDate currentDate = plan.getInceput(); 
