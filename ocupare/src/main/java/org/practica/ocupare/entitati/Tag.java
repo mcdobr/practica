@@ -17,7 +17,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+@Entity(name = "taguri")
 @Table(name = "taguri")
 public class Tag {
 

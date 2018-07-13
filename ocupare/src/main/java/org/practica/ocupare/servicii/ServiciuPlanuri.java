@@ -25,6 +25,7 @@ import org.practica.ocupare.entitati.Eveniment;
 import org.practica.ocupare.entitati.Plan;
 import org.practica.ocupare.entitati.Plan.Periodicitate;
 import org.practica.ocupare.entitati.Plan.Periodicitate.TipPeriodicitate;
+import org.practica.ocupare.entitati.Sala;
 import org.practica.ocupare.utile.HibernateUtil;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -67,8 +68,11 @@ public class ServiciuPlanuri {
 		
 		final ObjectNode node = new ObjectMapper().readValue(json, ObjectNode.class);
 		System.out.println(json);
-		System.out.println(node.get("nume"));
+		System.out.println(node.get("nume").asText());
 		
+		
+		Sala s = (Sala)session.createQuery("from sali s where s.nume = :nume")
+					.setParameter("nume", node.get("sala").asText()).uniqueResult();
 		
 		
 		final LocalDate inceputPlan = LocalDate.parse(node.get("inceput").asText());
@@ -85,12 +89,13 @@ public class ServiciuPlanuri {
 				node.get("participanti").asText(),
 				node.get("descriere").asText()
 				);
-		
+		plan.adaugaSala(s);
 		session.save(plan);
 		
 		
 		//TODO: Trebuie modificat incrementul. trebuie luate salile si adaugate
 		TemporalAmount increment = null;
+		
 		
 		for (LocalDate currentDate = plan.getInceput(); 
 				currentDate.isBefore(plan.getSfarsit()); 

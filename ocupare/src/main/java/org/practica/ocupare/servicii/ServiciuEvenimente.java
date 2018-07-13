@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.practica.ocupare.entitati.Eveniment;
 import org.practica.ocupare.entitati.Plan;
+import org.practica.ocupare.entitati.Sala;
 import org.practica.ocupare.utile.HibernateUtil;
 
 @Path("evenimente")
@@ -43,22 +44,22 @@ public class ServiciuEvenimente {
 	@Path("query")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public List<Eveniment> getEvenimentelePlanului(@QueryParam("planID") int planID) {
+	public List<Eveniment> getEvenimentelePlanului(@QueryParam("planID") int planID, @QueryParam("salaID") int salaID) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
 		Plan plan = session.get(Plan.class, planID);
-
-		// TODO: eliminat astea
-		Eveniment e = new Eveniment(plan, LocalDateTime.now(), LocalDateTime.now().plusHours(2));
-		session.save(e);
-		plan.getEvenimente().add(e);
-
-		List<Eveniment> ev = new ArrayList<>(plan.getEvenimente());
-		System.out.println(Arrays.toString(ev.toArray()));
-
-		List<Eveniment> evenimente = new ArrayList<>(plan.getEvenimente());
-
+		Sala sala = session.get(Sala.class, salaID);
+	
+		/*evenimente = session.createQuery("from evenimente as ev where ev.plan.id = :planID")
+				.setParameter("planID", planID).list();
+		*/
+		// Doar sala
+		
+		List<Eveniment> evenimente;
+		evenimente = session.createQuery("from evenimente as ev where :sala in elements(ev.plan.sali)")
+				.setParameter("sala", sala).list();
+		
 		session.getTransaction().commit();
 		session.close();
 		return evenimente;
