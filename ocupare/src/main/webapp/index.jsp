@@ -83,12 +83,13 @@ select {
 	<div class="navbar">
 		<a href="index.jsp" style="text-decoration: none;"><i
 			class="fa fa-home" style="font-size: 20px"></i>&nbsp; Acasă </a> <a
-			href="login.jsp" style="text-decoration: none;"><i
+			href="login.jsp" id="aut" style="text-decoration: none;"><i
 			class="fa fa-sign-in" style="font-size: 20px"></i>&nbsp;
-			Autentificare </a> <a href="logout.jsp" style="text-decoration: none;"><i
+			Autentificare </a> <a href="logout.jsp" id="dec" style="text-decoration: none;"><i
 			class="fa fa-sign-out" style="font-size: 20px"></i>&nbsp; Deconectare
-		</a>
-		<p>Welcome!</p>
+		</a> <a href="sali.jsp" style="text-decoration: none;"><i
+			class="fa fa-calendar-o" style="font-size: 20px;"></i> &nbsp; Săli</a>
+		<p id="msg"></p>
 	</div>
 
 	<br />
