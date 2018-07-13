@@ -90,6 +90,8 @@ function calendar()
 		document.getElementById('msg').innerHTML = "Bun venit !";
 		document.getElementById("dec").style.display = "none";
 	}
+  var link = document.getElementById('dec');
+	link.onclick = logout;
 	
 	function openNav() {
 		  document.getElementById("mySidenav").style.width = "250px";
@@ -750,5 +752,11 @@ function creareEveniment(){
 		}
 	});
 	
+	
+}
+function logout()
+{
+	document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	
 }
