@@ -76,18 +76,21 @@
 
 function calendar()
 {
-	
-	var value =Cookies.get('username');
-	if(value)
+	document.getElementById('')
+	var value = Cookies.get('username');
+	if(value!=null)
 	{
-		document.getElementById('WMsg').innerHTML = "Bun venit, " + value + "!";
+		document.getElementById('msg').innerHTML = "Bun venit, " + value;
+		document.getElementById("aut").style.display = "none";
+		
+		
 	}
 	else
 	{
-		document.getElementById('WMsg').innerHTML = "Bun venit!"
+		document.getElementById('msg').innerHTML = "Bun venit !";
+		document.getElementById("dec").style.display = "none";
 	}
-	
-	var link = document.getElementById('logOut');
+  var link = document.getElementById('dec');
 	link.onclick = logout;
 	
 	function openNav() {
