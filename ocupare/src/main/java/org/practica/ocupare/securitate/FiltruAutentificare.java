@@ -45,7 +45,7 @@ public class FiltruAutentificare implements ContainerRequestFilter {
 			final String[] userPassPair = SecurityUtil.getUserPassPair(header);
 			
 			final String user = userPassPair[0];
-			final String pass = userPassPair[1];
+			final String pass = Encrypt.generateHash(userPassPair[1]);
 			
 			/* Verifică accesul la resursă */
 			if (method.isAnnotationPresent(RolesAllowed.class)) {
@@ -58,8 +58,5 @@ public class FiltruAutentificare implements ContainerRequestFilter {
 				}
 			}
 		}
-		
 	}
-	
-	
 }
