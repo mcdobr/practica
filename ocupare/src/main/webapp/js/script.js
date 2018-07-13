@@ -76,7 +76,20 @@
 
 function calendar()
 {
-
+	
+	var value =Cookies.get('username');
+	if(value)
+	{
+		document.getElementById('WMsg').innerHTML = "Bun venit, " + value + "!";
+	}
+	else
+	{
+		document.getElementById('WMsg').innerHTML = "Bun venit!"
+	}
+	
+	var link = document.getElementById('logOut');
+	link.onclick = logout;
+	
 	function openNav() {
 		  document.getElementById("mySidenav").style.width = "250px";
 			}
@@ -736,5 +749,11 @@ function creareEveniment(){
 		}
 	});
 	
+	
+}
+function logout()
+{
+	document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	
 }

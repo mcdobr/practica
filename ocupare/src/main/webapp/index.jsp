@@ -81,14 +81,10 @@ select {
 <body onload="calendar()">
 
 	<div class="navbar">
-		<a href="index.jsp" style="text-decoration: none;"><i
-			class="fa fa-home" style="font-size: 20px"></i>&nbsp; Acasă </a> <a
-			href="login.jsp" style="text-decoration: none;"><i
-			class="fa fa-sign-in" style="font-size: 20px"></i>&nbsp;
-			Autentificare </a> <a href="logout.jsp" style="text-decoration: none;"><i
-			class="fa fa-sign-out" style="font-size: 20px"></i>&nbsp; Deconectare
-		</a>
-		<p>Welcome!</p>
+		<a href="index.jsp" style="text-decoration: none;"><i class="fa fa-home" style="font-size: 20px"></i>&nbsp; Acasă </a>
+			 <a href="login.jsp" style="text-decoration: none;"> <i class="fa fa-sign-in" style="font-size: 20px"></i>&nbsp;Autentificare </a>
+			 <a id="logOut" href="login.jsp" style="text-decoration: none;"> <i class="fa fa-sign-out" style="font-size: 20px"></i>&nbsp; Deconectare</a>
+		<p id = "WMsg"></p>
 	</div>
 
 	<br />
