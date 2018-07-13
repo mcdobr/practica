@@ -76,7 +76,21 @@
 
 function calendar()
 {
-
+	document.getElementById('')
+	var value = Cookies.get('username');
+	if(value!=null)
+	{
+		document.getElementById('msg').innerHTML = "Bun venit, " + value;
+		document.getElementById("aut").style.display = "none";
+		
+		
+	}
+	else
+	{
+		document.getElementById('msg').innerHTML = "Bun venit !";
+		document.getElementById("dec").style.display = "none";
+	}
+	
 	function openNav() {
 		  document.getElementById("mySidenav").style.width = "250px";
 			}

@@ -23,6 +23,7 @@
 <link href="css/style.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="js/script2.js"></script>
+<script src="js/script.js"></script>
 <link
 	href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -36,6 +37,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <style>
 .row {
 	margin-left: 0px;
@@ -93,17 +95,17 @@ select {
 }
 </style>
 </head>
-<body>
+<body onload="calendar()">
 	<div class="navbar">
 		<a href="index.jsp" style="text-decoration: none;"><i
 			class="fa fa-home" style="font-size: 20px"></i>&nbsp; Acasă </a> <a
-			href="login.jsp" style="text-decoration: none;"><i
+			href="login.jsp" id="aut" style="text-decoration: none;"><i
 			class="fa fa-sign-in" style="font-size: 20px"></i>&nbsp;
-			Autentificare </a> <a href="logout.jsp" style="text-decoration: none;"><i
+			Autentificare </a> <a href="logout.jsp" id="dec" style="text-decoration: none;"><i
 			class="fa fa-sign-out" style="font-size: 20px"></i>&nbsp; Deconectare
 		</a> <a href="sali.jsp" style="text-decoration: none;"><i
 			class="fa fa-calendar-o" style="font-size: 20px;"></i> &nbsp; Săli</a>
-		<p>Bun venit!</p>
+		<p id="msg"></p>
 	</div>
 
 	<br />
