@@ -1,5 +1,6 @@
 package org.practica.ocupare.servicii;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,21 +45,27 @@ public class ServiciuEvenimente {
 	@Path("query")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public List<Eveniment> getEvenimentelePlanului(@QueryParam("planID") int planID, @QueryParam("salaID") int salaID) {
+	public List<Eveniment> getEvenimenteQuery(@QueryParam("planID") Integer planID, @QueryParam("salaID") Integer salaID,
+			@QueryParam("data") String dataStr) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		Plan plan = session.get(Plan.class, planID);
-		Sala sala = session.get(Sala.class, salaID);
-	
+		//Plan plan = session.get(Plan.class, planID);
+		//Sala sala = session.get(Sala.class, salaID);
+		LocalDate data = LocalDate.parse(dataStr);
 		/*evenimente = session.createQuery("from evenimente as ev where ev.plan.id = :planID")
 				.setParameter("planID", planID).list();
 		*/
 		// Doar sala
 		
 		List<Eveniment> evenimente;
-		evenimente = session.createQuery("from evenimente as ev where :sala in elements(ev.plan.sali)")
-				.setParameter("sala", sala).list();
+		/*evenimente = session.createQuery("from evenimente as ev where :sala in elements(ev.plan.sali)")
+				.setParameter("sala", sala).list();*/
+		
+		
+		evenimente = session.createQuery("from evenimente as ev " +
+				"where day(ev.inceput) = day(:data) and month(ev.inceput) = month(:data) and year(ev.inceput) = year(:data)")
+				.setParameter("data", data).list();
 		
 		session.getTransaction().commit();
 		session.close();

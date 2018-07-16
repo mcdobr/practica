@@ -465,7 +465,11 @@ function calendar()
 		var organizer = new Organizer("organizerContainer", calendar);
 
 		currentDay = calendar.date.getDate();
-
+		
+		
+		
+		
+		
 		data = {
 		  years: [
 			{
@@ -489,8 +493,8 @@ function calendar()
 				}
 			  ]
 			},
-			{
-			  int: (new Date().getFullYear()),
+			
+			{ int: (new Date().getFullYear()),
 			  months: [
 				{
 				  int: (new Date().getMonth() + 1),
@@ -621,7 +625,7 @@ function calendar()
 		showEvents();
 
 		organizer.setOnClickListener('day-slider', function () { showEvents(); console.log("Day back slider clicked"); }, function () { showEvents(); console.log("Day next slider clicked"); });
-		organizer.setOnClickListener('days-blocks', function () { showEvents(); console.log("Day block clicked"); }, null);
+		organizer.setOnClickListener('days-blocks', function () { showEvents(); year =  calendar.date.getFullYear(); month = (parseInt(calendar.date.getMonth()) + 1); day = calendar.date.getDate(); fullDate = year + "-" + ((month<10)?("0"+month):month) + "-" + ((day < 10) ? ("0"+day):day); console.log("Day block clicked " + fullDate); getEvents(fullDate)}, null);
 		organizer.setOnClickListener('month-slider', function () { showEvents(); console.log("Month back slider clicked"); }, function () { showEvents(); console.log("Month next slider clicked"); });
 		organizer.setOnClickListener('year-slider', function () { showEvents(); console.log("Year back slider clicked"); }, function () { showEvents(); console.log("Year next slider clicked"); });
 			
@@ -629,7 +633,70 @@ function calendar()
 }
 
 
+
+
 URI='http://localhost:8080/ocupare/webapi/'
+
+function getEvents(data)
+{
+	console.log(data);
+	
+	$.ajax({
+		type: 'GET',
+		url: URI+'evenimente/query?data='+data,
+		dataType: 'json',
+		contentType: 'application/json',
+		success : showDayEvents
+	});
+	
+}
+
+function showDayEvents(jsonData)
+{
+	nrOfEvents = jsonData.length;
+	console.log(nrOfEvents);
+	
+	for(i = 0; i < nrOfEvents; i++)
+	{
+		console.log(jsonData[i]);
+		year = jsonData[i].sfarsit[0];
+		month = jsonData[i].sfarsit[1];
+		day = jsonData[i].sfarsit[2];
+		
+		var eveniment = {
+			years: [
+				{
+					int: year,
+					months: [
+						{
+							int: month,
+							days: [
+								{
+									int: day,
+									events: [
+										{
+											startTime: "5:45",
+											endTime: "7:15",
+											mTime: "pm",
+											text: "urasc intefata asta"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		};
+		
+		$.extend(true, data, eveniment);
+		//data.years.push(jsonData[i].sfarsit[0]);
+		//data.
+		console.log(data);
+	}	
+}
+
+
 	
 function sendUserInfo(jsonData){
 	$.ajax({
@@ -722,6 +789,7 @@ function creareEveniment(){
 	jsonData.sfarsit = document.getElementById('SDataSfarsit').value;
 	jsonData.oraSfarsit = document.getElementById('SOraS').value;
 	jsonData.perioada = document.getElementById('Perioada').value;
+	jsonData.user = Cookies.get('username');
 	
 	var zile = []; 
 	var inputElements = document.getElementsByClassName('checkBoxZile');
