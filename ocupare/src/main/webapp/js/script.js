@@ -400,7 +400,7 @@ function calendar()
 
 		  content = ""; 
 		  for (var i = 0; i < data.length; i++) {
-			content += '<li id="' + this.id + '-list-item-' + i + '"><div><span class="' + this.id + ' time" id="' + this.id + '-list-item-' + i + '-time">' + data[i].startTime + ' - ' + data[i].endTime + '</span><span class="' + this.id + ' m" id="' + this.id + '-list-item-' + i + '-m">' + data[i].mTime + '</span></div><p id="' + this.id + '-list-item-' + i + '-text">' + data[i].text + '</p></li>';
+			content += '<li id="' + this.id + '-list-item-' + i + '"><div><span class="' + this.id + ' time" id="' + this.id + '-list-item-' + i + '-time">' + data[i].startTime + ' - ' + data[i].endTime + '</span></div><p id="' + this.id + '-list-item-' + i + '-text">' + data[i].text + '</p></li>';
 		  }
 
 		  document.getElementById(this.id + "-list").innerHTML = content;
@@ -465,7 +465,11 @@ function calendar()
 		var organizer = new Organizer("organizerContainer", calendar);
 
 		currentDay = calendar.date.getDate();
-
+		
+		
+		
+		
+		
 		data = {
 		  years: [
 			{
@@ -489,8 +493,8 @@ function calendar()
 				}
 			  ]
 			},
-			{
-			  int: (new Date().getFullYear()),
+			
+			{ int: (new Date().getFullYear()),
 			  months: [
 				{
 				  int: (new Date().getMonth() + 1),
@@ -503,84 +507,6 @@ function calendar()
 						  endTime: "11:00",
 						  mTime: "AM",
 						  text: "SD Curs 1. Complexitati "
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "8:00",
-						  endTime: "9:00",
-						  mTime: "pm",
-						  text: "Next spam is for demonstration purposes only"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
 						}
 					  ]
 					}
@@ -621,7 +547,7 @@ function calendar()
 		showEvents();
 
 		organizer.setOnClickListener('day-slider', function () { showEvents(); console.log("Day back slider clicked"); }, function () { showEvents(); console.log("Day next slider clicked"); });
-		organizer.setOnClickListener('days-blocks', function () { showEvents(); console.log("Day block clicked"); }, null);
+		organizer.setOnClickListener('days-blocks', function () { showEvents(); year =  calendar.date.getFullYear(); month = (parseInt(calendar.date.getMonth()) + 1); day = calendar.date.getDate(); fullDate = year + "-" + ((month<10)?("0"+month):month) + "-" + ((day < 10) ? ("0"+day):day); console.log("Day block clicked " + fullDate); getEvents(fullDate)}, null);
 		organizer.setOnClickListener('month-slider', function () { showEvents(); console.log("Month back slider clicked"); }, function () { showEvents(); console.log("Month next slider clicked"); });
 		organizer.setOnClickListener('year-slider', function () { showEvents(); console.log("Year back slider clicked"); }, function () { showEvents(); console.log("Year next slider clicked"); });
 			
@@ -629,7 +555,83 @@ function calendar()
 }
 
 
+
+
 URI='http://localhost:8080/ocupare/webapi/'
+
+function getEvents(data)
+{
+	console.log(data);
+	
+	$.ajax({
+		type: 'GET',
+		url: URI+'evenimente/query?data='+data,
+		dataType: 'json',
+		contentType: 'application/json',
+		success : showDayEvents
+	});
+	
+}
+
+function showDayEvents(jsonData)
+{
+	nrOfEvents = jsonData.length;
+	console.log(nrOfEvents);
+	
+	for(i = 0; i < nrOfEvents; i++)
+	{
+		console.log(jsonData[i]);
+		year = jsonData[i].sfarsit[0];
+		month = jsonData[i].sfarsit[1];
+		day = jsonData[i].sfarsit[2];
+		
+		startHour = jsonData[i].inceput[3];
+		startMinute = jsonData[i].inceput[4];
+		endHour = jsonData[i].sfarsit[3];
+		endMinute = jsonData[i].sfarsit[4];
+		
+		
+		$.ajax({
+			type: 'GET',
+			url: URI+'planuri/'+jsonData[i].plan,
+			dataType: 'json',
+			contentType: 'application/json',
+			success : function(planData) {
+				
+				var eveniment = {
+						years: [
+							{
+								int: year,
+								months: [
+									{
+										int: month,
+										days: [
+											{
+												int: day,
+												events: [
+													{
+														startTime: startHour,
+														endTime: endHour,
+														mTime: "",
+														text: planData.descriere
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					};
+					
+					$.extend(true, data, eveniment);
+					console.log(data);
+			}
+		});
+	}	
+}
+
+
 	
 function sendUserInfo(jsonData){
 	$.ajax({
@@ -722,6 +724,7 @@ function creareEveniment(){
 	jsonData.sfarsit = document.getElementById('SDataSfarsit').value;
 	jsonData.oraSfarsit = document.getElementById('SOraS').value;
 	jsonData.perioada = document.getElementById('Perioada').value;
+	jsonData.user = Cookies.get('username');
 	
 	var zile = []; 
 	var inputElements = document.getElementsByClassName('checkBoxZile');
