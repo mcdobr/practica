@@ -22,10 +22,13 @@ function getJson(jsonData) {
 	th2.innerHTML = 'Ora';
 	var th3 = document.createElement('th');
 	th3.innerHTML = 'Sala';
+	var th4 = document.createElement('th');
+	th4.innerHTML = 'Ziua';
 
 	var tbody = document.createElement('tbody');
 
 	tr.appendChild(th1);
+	tr.appendChild(th4);
 	tr.appendChild(th2);
 	tr.appendChild(th3);
 
@@ -72,7 +75,7 @@ function getJson(jsonData) {
 						
 
 			var ok = 0;
-			if(check1>=from && check2<=to)
+			if(from>=check1 && from<=check2)
 			{
 				console.log('da');
 				ok=1;
@@ -112,14 +115,16 @@ function getJson(jsonData) {
 				var tr2 = document.createElement('tr');
 				var td = document.createElement('td');
 
-				td.innerHTML = anI + '.' + lunaI + '.' + ziI + '-' + anS + '.'
-						+ lunaS + '.' + ziS;
+				td.innerHTML = check1.toLocaleDateString("ro-RO") + '-' + check2.toLocaleDateString("ro-RO");
+				var td4 = document.createElement('td');
+				td4.innerHTML =  anI + '.' + lunaI + '.' + ziI;
 				var td2 = document.createElement('td');
 				td2.innerHTML = oraI + '.' + minI + '-' + oraS + '.' + minS;
 				var td3 = document.createElement('td');
 				td3.innerHTML = vaL;
 
 				tr2.appendChild(td);
+				tr2.appendChild(td4);
 				tr2.appendChild(td2);
 				tr2.appendChild(td3);
 				tbody.appendChild(tr2);
@@ -139,12 +144,15 @@ function getJson(jsonData) {
 		var tr2 = document.createElement('tr');
 		var td = document.createElement('td');
 		td.innerHTML = '-';
+		var td4 = document.createElement('td');
+		td4.innerHTML = '-';
 		var td2 = document.createElement('td');
 		td2.innerHTML = '-';
 		var td3 = document.createElement('td');
 		td3.innerHTML = vaL;
 
 		tr2.appendChild(td);
+		tr2.appendChild(td4);
 		tr2.appendChild(td2);
 		tr2.appendChild(td3);
 		tbody.appendChild(tr2);
@@ -168,7 +176,10 @@ function getJson(jsonData) {
 
 function functie(element) {
 
-	var value = parseInt(element.id.substring(3, element.id.length) + 1);
+	var value = parseInt(element.id.substring(3, element.id.length)) + 1;
+	console.log(value);
+	console.log('http://localhost:8080/ocupare/webapi/evenimente/query?'
+				+ 'salaID=' + value);
 
 	$.ajax({
 		type : 'GET',
