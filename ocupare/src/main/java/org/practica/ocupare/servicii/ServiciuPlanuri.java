@@ -41,8 +41,8 @@ public class ServiciuPlanuri {
 	@GET
 	@Path("{planID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	//@PermitAll
-	@RolesAllowed({ "user", "admin" })
+	@PermitAll
+	//@RolesAllowed({ "user", "admin" })
 	public Plan getPlan(@PathParam("planID") int planID) {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();

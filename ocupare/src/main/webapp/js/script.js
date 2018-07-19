@@ -400,7 +400,7 @@ function calendar()
 
 		  content = ""; 
 		  for (var i = 0; i < data.length; i++) {
-			content += '<li id="' + this.id + '-list-item-' + i + '"><div><span class="' + this.id + ' time" id="' + this.id + '-list-item-' + i + '-time">' + data[i].startTime + ' - ' + data[i].endTime + '</span><span class="' + this.id + ' m" id="' + this.id + '-list-item-' + i + '-m">' + data[i].mTime + '</span></div><p id="' + this.id + '-list-item-' + i + '-text">' + data[i].text + '</p></li>';
+			content += '<li id="' + this.id + '-list-item-' + i + '"><div><span class="' + this.id + ' time" id="' + this.id + '-list-item-' + i + '-time">' + data[i].startTime + ' - ' + data[i].endTime + '</span></div><p id="' + this.id + '-list-item-' + i + '-text">' + data[i].text + '</p></li>';
 		  }
 
 		  document.getElementById(this.id + "-list").innerHTML = content;
@@ -507,84 +507,6 @@ function calendar()
 						  endTime: "11:00",
 						  mTime: "AM",
 						  text: "SD Curs 1. Complexitati "
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "8:00",
-						  endTime: "9:00",
-						  mTime: "pm",
-						  text: "Next spam is for demonstration purposes only"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
-						},
-						{
-						  startTime: "5:45",
-						  endTime: "7:15",
-						  mTime: "pm",
-						  text: "WIP Library"
-						},
-						{
-						  startTime: "10:00",
-						  endTime: "11:00",
-						  mTime: "pm",
-						  text: "Probably won't fix that (time width)"
 						}
 					  ]
 					}
@@ -663,36 +585,49 @@ function showDayEvents(jsonData)
 		month = jsonData[i].sfarsit[1];
 		day = jsonData[i].sfarsit[2];
 		
-		var eveniment = {
-			years: [
-				{
-					int: year,
-					months: [
-						{
-							int: month,
-							days: [
-								{
-									int: day,
-									events: [
-										{
-											startTime: "5:45",
-											endTime: "7:15",
-											mTime: "pm",
-											text: "urasc intefata asta"
-										}
-									]
-								}
-							]
-						}
-					]
-				}
-			]
-		};
+		startHour = jsonData[i].inceput[3];
+		startMinute = jsonData[i].inceput[4];
+		endHour = jsonData[i].sfarsit[3];
+		endMinute = jsonData[i].sfarsit[4];
 		
-		$.extend(true, data, eveniment);
-		//data.years.push(jsonData[i].sfarsit[0]);
-		//data.
-		console.log(data);
+		
+		$.ajax({
+			type: 'GET',
+			url: URI+'planuri/'+jsonData[i].plan,
+			dataType: 'json',
+			contentType: 'application/json',
+			success : function(planData) {
+				
+				var eveniment = {
+						years: [
+							{
+								int: year,
+								months: [
+									{
+										int: month,
+										days: [
+											{
+												int: day,
+												events: [
+													{
+														startTime: startHour,
+														endTime: endHour,
+														mTime: "",
+														text: planData.descriere
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					};
+					
+					$.extend(true, data, eveniment);
+					console.log(data);
+			}
+		});
 	}	
 }
 
