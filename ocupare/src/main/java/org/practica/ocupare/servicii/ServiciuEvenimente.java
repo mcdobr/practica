@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.practica.ocupare.entitati.Eveniment;
 import org.practica.ocupare.entitati.Plan;
 import org.practica.ocupare.entitati.Sala;
@@ -50,26 +51,72 @@ public class ServiciuEvenimente {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 
-		//Plan plan = session.get(Plan.class, planID);
-		//Sala sala = session.get(Sala.class, salaID);
-		LocalDate data = LocalDate.parse(dataStr);
-		/*evenimente = session.createQuery("from evenimente as ev where ev.plan.id = :planID")
-				.setParameter("planID", planID).list();
-		*/
+		Plan plan = null;
+		Sala sala = null;
+		LocalDate data = null;
 		// Doar sala
 		
-		List<Eveniment> evenimente;
-		/*evenimente = session.createQuery("from evenimente as ev where :sala in elements(ev.plan.sali)")
-				.setParameter("sala", sala).list();*/
+		boolean usePlan = (planID != null);
+		boolean useSala = (salaID != null);
+		boolean useData = (data != null);
 		
 		
-		evenimente = session.createQuery("from evenimente as ev " +
-				"where day(ev.inceput) = day(:data) and month(ev.inceput) = month(:data) and year(ev.inceput) = year(:data)")
-				.setParameter("data", data).list();
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("from evenimente as ev ");
+		if (usePlan || useSala || useData)
+			queryBuilder.append("where ");
+		
+		if (usePlan) {
+			plan = session.get(Plan.class, planID);
+			queryBuilder.append("ev.plan.id = :planID ");
+		}
+		
+		if (useSala) {
+			sala = session.get(Sala.class, salaID);
+			if (usePlan)
+				queryBuilder.append("and ");
+			queryBuilder.append(":sala in elements(ev.plan.sali) ");
+		}
+		
+		if (useData) {
+			data = LocalDate.parse(dataStr);
+			if (usePlan || useSala)
+				queryBuilder.append("and ");
+			queryBuilder.append("day(ev.inceput) = day(:data) and month(ev.inceput) = month(:data) and year(ev.inceput) = year(:data)");
+		}
+		
+		String hql = queryBuilder.toString();
+		Query query = session.createQuery(hql);
+		
+		if (usePlan)
+			query = query.setParameter("planID", planID);
+		if (useSala)
+			query = query.setParameter("sala", sala);
+		if (useData)
+			query = query.setParameter("data", data);
+		
+		
+		List<Eveniment> evenimente = query.list();
+		
 		
 		session.getTransaction().commit();
 		session.close();
 		return evenimente;
+		
+
+		/*
+		evenimente = session.createQuery("from evenimente as ev " +
+				"where day(ev.inceput) = day(:data) and month(ev.inceput) = month(:data) and year(ev.inceput) = year(:data)")
+				.setParameter("data", data).list();
+		*/
+		
+		/*evenimente = session.createQuery("from evenimente as ev where :sala in elements(ev.plan.sali)")
+		.setParameter("sala", sala).list();*/
+
+
+		/*evenimente = session.createQuery("from evenimente as ev where ev.plan.id = :planID")
+				.setParameter("planID", planID).list();
+		*/
 	}
 
 	@DELETE
