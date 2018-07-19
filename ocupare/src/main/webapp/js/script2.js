@@ -127,6 +127,8 @@ function getJson(jsonData) {
 				tr2.appendChild(td4);
 				tr2.appendChild(td2);
 				tr2.appendChild(td3);
+				
+				
 				tbody.appendChild(tr2);
 
 				thead.appendChild(tr);
